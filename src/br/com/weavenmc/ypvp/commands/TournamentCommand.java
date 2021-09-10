@@ -1,5 +1,4 @@
 package br.com.weavenmc.ypvp.commands;
 
-public class TournamentCommand
-{
+public class TournamentCommand {
 }

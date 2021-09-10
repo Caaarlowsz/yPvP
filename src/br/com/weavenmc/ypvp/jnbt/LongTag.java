@@ -1,26 +1,25 @@
 package br.com.weavenmc.ypvp.jnbt;
 
-public final class LongTag extends Tag
-{
-    private final long value;
-    
-    public LongTag(final String name, final long value) {
-        super(name);
-        this.value = value;
-    }
-    
-    @Override
-    public Long getValue() {
-        return this.value;
-    }
-    
-    @Override
-    public String toString() {
-        final String name = this.getName();
-        String append = "";
-        if (name != null && !name.isEmpty()) {
-            append = "(\"" + this.getName() + "\")";
-        }
-        return "TAG_Long" + append + ": " + this.value;
-    }
+public final class LongTag extends Tag {
+	private final long value;
+
+	public LongTag(final String name, final long value) {
+		super(name);
+		this.value = value;
+	}
+
+	@Override
+	public Long getValue() {
+		return this.value;
+	}
+
+	@Override
+	public String toString() {
+		final String name = this.getName();
+		String append = "";
+		if (name != null && !name.isEmpty()) {
+			append = "(\"" + this.getName() + "\")";
+		}
+		return "TAG_Long" + append + ": " + this.value;
+	}
 }
