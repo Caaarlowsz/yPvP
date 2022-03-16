@@ -5,12 +5,12 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import br.com.weavenmc.ypvp.Management;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 
 public class LocationManager extends Management {
 	private FileConfiguration config;
 
-	public LocationManager(final yPvP plugin) {
+	public LocationManager(final YPvP plugin) {
 		super(plugin);
 	}
 

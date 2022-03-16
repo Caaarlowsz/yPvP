@@ -63,7 +63,7 @@ import br.com.weavenmc.commons.core.account.WeavenPlayer;
 import br.com.weavenmc.commons.core.data.player.category.DataCategory;
 import br.com.weavenmc.commons.core.data.player.type.DataType;
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.managers.TeleportManager;
 import br.com.weavenmc.ypvp.minigame.Minigame;
@@ -102,13 +102,13 @@ public class PlayerListener implements Listener {
 		final BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
 		if (bP != null) {
 			final Gamer gamer;
-			yPvP.getPlugin().getGamerManager().loadGamer(bP.getUniqueId(), gamer = new Gamer(bP));
-			gamer.setAbility(yPvP.getPlugin().getAbilityManager().getNone());
+			YPvP.getPlugin().getGamerManager().loadGamer(bP.getUniqueId(), gamer = new Gamer(bP));
+			gamer.setAbility(YPvP.getPlugin().getAbilityManager().getNone());
 			WeavenMC.getAsynchronousExecutor()
 					.runAsync(() -> bP.load(new DataCategory[] { DataCategory.KITPVP, DataCategory.LAVA_CHALLENGE }));
 		} else {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER,
-					"§4§lERRO§f Ocorreu um erro ao tentar carregar sua conta.");
+					"ï¿½4ï¿½lERROï¿½f Ocorreu um erro ao tentar carregar sua conta.");
 		}
 	}
 
@@ -116,26 +116,26 @@ public class PlayerListener implements Listener {
 	public void onJoinListener(final PlayerJoinEvent event) {
 		event.setJoinMessage((String) null);
 		final Player p = event.getPlayer();
-		yPvP.getPlugin().getWarpManager().getWarp(SpawnMinigame.class).join(p);
+		YPvP.getPlugin().getWarpManager().getWarp(SpawnMinigame.class).join(p);
 		p.sendMessage("");
-		p.sendMessage("§2§lNESTY§f§lPVP");
+		p.sendMessage("ï¿½2ï¿½lNESTYï¿½fï¿½lPVP");
 		p.sendMessage("");
-		p.sendMessage("§fEscolha seu kit clicando no §e§lBAU§f da sua §e§lMAO");
+		p.sendMessage("ï¿½fEscolha seu kit clicando no ï¿½eï¿½lBAUï¿½f da sua ï¿½eï¿½lMAO");
 		p.sendMessage("");
-		p.sendMessage("§9§lTENHA UM BOM JOGO!");
-		TitleAPI.setTitle(p, "§2§lNesty§f§lPvP", "§7Conectado ao " + yPvP.getPlugin().getPvpType().name());
+		p.sendMessage("ï¿½9ï¿½lTENHA UM BOM JOGO!");
+		TitleAPI.setTitle(p, "ï¿½2ï¿½lNestyï¿½fï¿½lPvP", "ï¿½7Conectado ao " + YPvP.getPlugin().getPvpType().name());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onQuitListener(final PlayerQuitEvent event) {
 		event.setQuitMessage((String) null);
-		yPvP.getPlugin().getGamerManager().unloadGamer(event.getPlayer().getUniqueId());
+		YPvP.getPlugin().getGamerManager().unloadGamer(event.getPlayer().getUniqueId());
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onCombatLogout(final PlayerQuitEvent event) {
 		final Player logout = event.getPlayer();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(logout.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(logout.getUniqueId());
 		if (gamer.inCombat() && !gamer.getWarp().getName().equalsIgnoreCase("1v1")) {
 			final Player winner = Bukkit.getPlayer(gamer.getLastCombat());
 			if (winner != null) {
@@ -145,7 +145,7 @@ public class PlayerListener implements Listener {
 						.getWeavenPlayer(winner.getUniqueId());
 				int deaths = bPLoser.getData(DataType.PVP_DEATHS).asInt();
 				bPLoser.getData(DataType.PVP_DEATHS).setValue((Object) (++deaths));
-				winner.sendMessage("§c" + logout.getName() + " deslogou.");
+				winner.sendMessage("ï¿½c" + logout.getName() + " deslogou.");
 				this.checkLostKs(logout, winner, bPLoser.getData(DataType.PVP_KILLSTREAK).asInt());
 				bPLoser.getData(DataType.PVP_KILLSTREAK).setValue((Object) 0);
 				final int streak = bPWinner.getData(DataType.PVP_KILLSTREAK).asInt() + 1;
@@ -157,10 +157,10 @@ public class PlayerListener implements Listener {
 				final int xp = this.calculateXp((WeavenPlayer) bPWinner, (WeavenPlayer) bPLoser);
 				bPWinner.addXp(xp);
 				bPWinner.addMoney(80);
-				winner.sendMessage("§e§lKILL§f Voc\u00ea matou §e§l" + logout.getName());
-				winner.sendMessage("§6§lMONEY§f Voc\u00ea recebeu §6§l80 MOEDAS");
-				winner.sendMessage("§9§lXP§f Voc\u00ea recebeu §9§l" + xp + " XPs"
-						+ (bPWinner.isDoubleXPActived() ? " §7(doublexp)" : ""));
+				winner.sendMessage("ï¿½eï¿½lKILLï¿½f Voc\u00ea matou ï¿½eï¿½l" + logout.getName());
+				winner.sendMessage("ï¿½6ï¿½lMONEYï¿½f Voc\u00ea recebeu ï¿½6ï¿½l80 MOEDAS");
+				winner.sendMessage("ï¿½9ï¿½lXPï¿½f Voc\u00ea recebeu ï¿½9ï¿½l" + xp + " XPs"
+						+ (bPWinner.isDoubleXPActived() ? " ï¿½7(doublexp)" : ""));
 				int kills = bPWinner.getData(DataType.PVP_KILLS).asInt();
 				bPWinner.getData(DataType.PVP_KILLS).setValue((Object) (++kills));
 				this.checkKs(winner, streak);
@@ -185,7 +185,7 @@ public class PlayerListener implements Listener {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player && !event.isCancelled()) {
 			final Player damaged = (Player) event.getEntity();
 			final Player damager = (Player) event.getDamager();
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(damaged.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(damaged.getUniqueId());
 			if (gamer.getWarp().getName().equalsIgnoreCase("spawn")
 					|| gamer.getWarp().getName().equalsIgnoreCase("fps")) {
 				gamer.addCombat(damager.getUniqueId(), 9);
@@ -237,7 +237,7 @@ public class PlayerListener implements Listener {
 			event.setCancelled(true);
 			return;
 		}
-		Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		Material material = event.getItem().getItemStack().getType();
 		if (gamer.getWarp().getName().equalsIgnoreCase("1v1")) {
 			event.setCancelled(true);
@@ -294,10 +294,10 @@ public class PlayerListener implements Listener {
 		TeleportManager.getInstance().allowJoin(p);
 		p.setFireTicks(0);
 		p.setHealth(p.getMaxHealth());
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		final Minigame minigame = gamer.getWarp();
 		minigame.join(p);
-		p.sendMessage("§6§lRESPAWN§f Voc\u00ea morreu e resnaceu na Warp §e" + minigame.getName());
+		p.sendMessage("ï¿½6ï¿½lRESPAWNï¿½f Voc\u00ea morreu e resnaceu na Warp ï¿½e" + minigame.getName());
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -311,7 +311,7 @@ public class PlayerListener implements Listener {
 			if (p.getHealth() - event.getFinalDamage() <= 0.0) {
 				event.setCancelled(true);
 				p.setHealth(20.0);
-				final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+				final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 				final UUID lastCombatUUID = gamer.getLastCombat();
 				Player killer = null;
 				if (lastCombatUUID != null && (killer = Bukkit.getPlayer(lastCombatUUID)) != null) {
@@ -367,22 +367,22 @@ public class PlayerListener implements Listener {
 				bP.getData(DataType.PVP_GREATER_KILLSTREAK).asInt();
 			}
 			bP.getData(DataType.PVP_KILLSTREAK).setValue((Object) killStreak);
-			killer.sendMessage("§e§lKILL§f Voc\u00ea matou §e§l" + p.getName());
-			killer.sendMessage("§6§lMONEY§f Voc\u00ea recebeu §6§l80 MOEDAS");
+			killer.sendMessage("ï¿½eï¿½lKILLï¿½f Voc\u00ea matou ï¿½eï¿½l" + p.getName());
+			killer.sendMessage("ï¿½6ï¿½lMONEYï¿½f Voc\u00ea recebeu ï¿½6ï¿½l80 MOEDAS");
 			killer.sendMessage(
-					"§9§lXP§f Voc\u00ea recebeu §9§l" + xp + " XPs" + (bP.isDoubleXPActived() ? " §7(doublexp)" : ""));
+					"ï¿½9ï¿½lXPï¿½f Voc\u00ea recebeu ï¿½9ï¿½l" + xp + " XPs" + (bP.isDoubleXPActived() ? " ï¿½7(doublexp)" : ""));
 			int deaths = player.getData(DataType.PVP_DEATHS).asInt();
 			player.getData(DataType.PVP_DEATHS).setValue((Object) (++deaths));
 			player.getData(DataType.PVP_KILLSTREAK).setValue((Object) 0);
 			player.removeMoney(1);
-			p.sendMessage("§c§lMORTE§f Voc\u00ea morreu para §e§l" + killer.getName());
-			p.sendMessage("§4§lMONEY§f Voc\u00ea perdeu §4§l1 MOEDA");
+			p.sendMessage("ï¿½cï¿½lMORTEï¿½f Voc\u00ea morreu para ï¿½eï¿½l" + killer.getName());
+			p.sendMessage("ï¿½4ï¿½lMONEYï¿½f Voc\u00ea perdeu ï¿½4ï¿½l1 MOEDA");
 			this.checkKs(killer, killStreak);
 			player.save(new DataCategory[] { DataCategory.KITPVP, DataCategory.BALANCE });
 			bP.save(new DataCategory[] { DataCategory.BALANCE, DataCategory.KITPVP });
 		} else {
 			event.getDrops().clear();
-			p.sendMessage("§c§lMORTE§f Voc\u00ea morreu");
+			p.sendMessage("ï¿½cï¿½lMORTEï¿½f Voc\u00ea morreu");
 			player.getData(DataType.PVP_KILLSTREAK).setValue((Object) 0);
 			player.save(new DataCategory[] { DataCategory.KITPVP });
 		}
@@ -400,7 +400,7 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		if (String.valueOf(ks).endsWith("0") || String.valueOf(ks).endsWith("5")) {
-			Bukkit.broadcastMessage("§4§lKILLSTREAK §1§l" + p.getName() + " §fconseguiu um §6§lKILLSTREAK DE " + ks);
+			Bukkit.broadcastMessage("ï¿½4ï¿½lKILLSTREAK ï¿½1ï¿½l" + p.getName() + " ï¿½fconseguiu um ï¿½6ï¿½lKILLSTREAK DE " + ks);
 		}
 	}
 
@@ -408,8 +408,8 @@ public class PlayerListener implements Listener {
 		if (ks < 10) {
 			return;
 		}
-		Bukkit.broadcastMessage("§4§lKILLSTREAK §1§l" + p.getName() + "§f perdeu seu §6§lKILLSTREAK DE " + ks
-				+ " PARA §c§l" + k.getName());
+		Bukkit.broadcastMessage("ï¿½4ï¿½lKILLSTREAK ï¿½1ï¿½l" + p.getName() + "ï¿½f perdeu seu ï¿½6ï¿½lKILLSTREAK DE " + ks
+				+ " PARA ï¿½cï¿½l" + k.getName());
 	}
 
 	public int calculateXp(final WeavenPlayer receiver, final WeavenPlayer wP) {
@@ -487,7 +487,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onDropItem(final PlayerDropItemEvent event) {
 		final Player player = event.getPlayer();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(player.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(player.getUniqueId());
 		if (gamer.getWarp().getName().equals("1v1")) {
 			event.setCancelled(true);
 		} else {
@@ -530,7 +530,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onCompass(final PlayerInteractEvent event) {
 		Player p = event.getPlayer();
-		Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		if (!gamer.getAbility().getName().equals("Nenhum")) {
 			Material material = p.getItemInHand().getType();
 			if (material == null || material != Material.COMPASS) {
@@ -551,11 +551,11 @@ public class PlayerListener implements Listener {
 				target = players;
 			}
 			if (target == null) {
-				p.sendMessage("§6§lBUSSOLA§f Nenhum player foi encontrado");
+				p.sendMessage("ï¿½6ï¿½lBUSSOLAï¿½f Nenhum player foi encontrado");
 				p.setCompassTarget(p.getWorld().getSpawnLocation());
 			} else {
 				p.setCompassTarget(target.getLocation());
-				p.sendMessage("§6§lBUSSOLA§f Apontando para §e§l" + target.getName());
+				p.sendMessage("ï¿½6ï¿½lBUSSOLAï¿½f Apontando para ï¿½eï¿½l" + target.getName());
 				target = null;
 			}
 			material = null;
@@ -567,7 +567,7 @@ public class PlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onSoup(final PlayerInteractEvent event) {
 		Player p = event.getPlayer();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		Material material = p.getItemInHand().getType();
 		if (material == null || material != Material.MUSHROOM_SOUP) {
 			return;
@@ -593,6 +593,6 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onItemSpawn(final ItemSpawnEvent event) {
 		final Item localItem = event.getEntity();
-		Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) yPvP.getPlugin(), () -> localItem.remove(), 200L);
+		Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) YPvP.getPlugin(), () -> localItem.remove(), 200L);
 	}
 }

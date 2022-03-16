@@ -13,7 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 
@@ -24,7 +24,7 @@ public class SwitcherAbility extends Ability {
 		this.setGroupToUse(Group.MEMBRO);
 		this.setIcon(Material.EGG);
 		this.setDescription(
-				new String[] { "§7Lan\u00e7e sua bolinha em seu oponente", "§7e troque de lugar com ele." });
+				new String[] { "ï¿½7Lan\u00e7e sua bolinha em seu oponente", "ï¿½7e troque de lugar com ele." });
 		this.setPrice(45000);
 		this.setTempPrice(2500);
 	}
@@ -43,7 +43,7 @@ public class SwitcherAbility extends Ability {
 				this.addCooldown(p, 12);
 				final Egg egg = (Egg) p.launchProjectile(Egg.class);
 				egg.setMetadata("Switcher",
-						(MetadataValue) new FixedMetadataValue((Plugin) yPvP.getPlugin(), (Object) p.getUniqueId()));
+						(MetadataValue) new FixedMetadataValue((Plugin) YPvP.getPlugin(), (Object) p.getUniqueId()));
 				egg.setShooter((ProjectileSource) p);
 				egg.setVelocity(egg.getVelocity().multiply(2));
 			} else {

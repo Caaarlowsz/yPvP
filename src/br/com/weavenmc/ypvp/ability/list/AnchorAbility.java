@@ -9,7 +9,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class AnchorAbility extends Ability {
@@ -18,7 +18,7 @@ public class AnchorAbility extends Ability {
 		this.setHasItem(false);
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.ANVIL);
-		this.setDescription(new String[] { "§7N\u00e3o d\u00ea e nem receba knockback." });
+		this.setDescription(new String[] { "ï¿½7N\u00e3o d\u00ea e nem receba knockback." });
 		this.setPrice(55000);
 		this.setTempPrice(5000);
 	}
@@ -41,7 +41,7 @@ public class AnchorAbility extends Ability {
 	public void anchor(final Player a, final Player b) {
 		a.setVelocity(new Vector(0.0, 0.0, 0.0));
 		b.setVelocity(new Vector(0.0, 0.0, 0.0));
-		Bukkit.getScheduler().runTaskLater((Plugin) yPvP.getPlugin(), () -> {
+		Bukkit.getScheduler().runTaskLater((Plugin) YPvP.getPlugin(), () -> {
 			a.setVelocity(new Vector(0.0, 0.0, 0.0));
 			b.setVelocity(new Vector(0.0, 0.0, 0.0));
 		}, 1L);

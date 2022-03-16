@@ -18,7 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.weavenmc.commons.bukkit.api.item.ItemBuilder;
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class PhantomAbility extends Ability {
@@ -32,7 +32,7 @@ public class PhantomAbility extends Ability {
 		this.setHasItem(true);
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.FEATHER);
-		this.setDescription(new String[] { "§7Tenha a habilidade de voar." });
+		this.setDescription(new String[] { "ï¿½7Tenha a habilidade de voar." });
 		this.setPrice(60000);
 		this.setTempPrice(3500);
 	}
@@ -81,7 +81,7 @@ public class PhantomAbility extends Ability {
 								if (current == 5) {
 									if (PhantomAbility.this.flying.contains(p.getUniqueId())) {
 										PhantomAbility.this.flying.remove(p.getUniqueId());
-										p.sendMessage("§5§lPHANTON§f Acabou o tempo de §9§lV\u00d4O");
+										p.sendMessage("ï¿½5ï¿½lPHANTONï¿½f Acabou o tempo de ï¿½9ï¿½lV\u00d4O");
 									}
 									p.setAllowFlight(false);
 									p.setFlying(false);
@@ -92,17 +92,17 @@ public class PhantomAbility extends Ability {
 										PhantomAbility.this.previous.remove(p.getUniqueId());
 									}
 								} else if (PhantomAbility.this.flying.contains(p.getUniqueId())) {
-									p.sendMessage("§5§lPHANTOM§f Voc\u00ea n\u00e3o voar\u00e1 mais em §9§l"
+									p.sendMessage("ï¿½5ï¿½lPHANTOMï¿½f Voc\u00ea n\u00e3o voar\u00e1 mais em ï¿½9ï¿½l"
 											+ PhantomAbility.this.convert(current) + " SEGUNDOS...");
 								}
 							}
-						}.runTaskLater((Plugin) yPvP.getPlugin(), (long) (i * 20));
+						}.runTaskLater((Plugin) YPvP.getPlugin(), (long) (i * 20));
 					}
 				} else {
 					this.sendCooldown(p);
 				}
 			} else {
-				p.sendMessage("§5§lPHANTOM§f Voc\u00ea j\u00e1 est\u00e1 §9§lVOANDO!");
+				p.sendMessage("ï¿½5ï¿½lPHANTOMï¿½f Voc\u00ea j\u00e1 est\u00e1 ï¿½9ï¿½lVOANDO!");
 			}
 		}
 	}

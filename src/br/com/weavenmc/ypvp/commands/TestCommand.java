@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import br.com.weavenmc.commons.bukkit.command.BukkitCommandSender;
 import br.com.weavenmc.commons.core.command.CommandClass;
 import br.com.weavenmc.commons.core.command.CommandFramework;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.jnbt.DataException;
 import br.com.weavenmc.ypvp.jnbt.Schematic;
 
@@ -18,21 +18,21 @@ public class TestCommand implements CommandClass {
 		if (sender.isPlayer()) {
 			final Player p = sender.getPlayer();
 			if (args.length == 0) {
-				p.sendMessage("§3§lSCHEMATIC§f Utilize: §b§l/schematic§f [file name ...]");
+				p.sendMessage("ï¿½3ï¿½lSCHEMATICï¿½f Utilize: ï¿½bï¿½l/schematicï¿½f [file name ...]");
 			} else {
 				Schematic file = null;
 				try {
-					file = Schematic.getInstance().loadSchematic(new File(yPvP.getPlugin().getDataFolder(), args[0]));
+					file = Schematic.getInstance().loadSchematic(new File(YPvP.getPlugin().getDataFolder(), args[0]));
 				} catch (IOException | DataException ex) {
-					p.sendMessage("§3§lSCHEMATIC§f Erro: §b" + ex.getMessage());
+					p.sendMessage("ï¿½3ï¿½lSCHEMATICï¿½f Erro: ï¿½b" + ex.getMessage());
 				}
 				if (file != null) {
-					p.sendMessage("§3§lSCHEMATIC§f Spawnando o schematic...");
+					p.sendMessage("ï¿½3ï¿½lSCHEMATICï¿½f Spawnando o schematic...");
 					Schematic.spawn(p.getWorld(), p.getLocation(), file);
 				}
 			}
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game!");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game!");
 		}
 	}
 }

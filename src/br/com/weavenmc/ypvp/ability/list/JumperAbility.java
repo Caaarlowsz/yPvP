@@ -14,7 +14,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class JumperAbility extends Ability {
@@ -23,7 +23,7 @@ public class JumperAbility extends Ability {
 		this.setHasItem(true);
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.EYE_OF_ENDER);
-		this.setDescription(new String[] { "§7Monte em sua ender pearl", "§7e voe junto com ela." });
+		this.setDescription(new String[] { "ï¿½7Monte em sua ender pearl", "ï¿½7e voe junto com ela." });
 		this.setPrice(80000);
 		this.setTempPrice(8500);
 	}
@@ -44,7 +44,7 @@ public class JumperAbility extends Ability {
 				final EnderPearl ender = (EnderPearl) p.launchProjectile(EnderPearl.class);
 				ender.setPassenger((Entity) p);
 				ender.setMetadata("Jumper",
-						(MetadataValue) new FixedMetadataValue((Plugin) yPvP.getPlugin(), (Object) p.getUniqueId()));
+						(MetadataValue) new FixedMetadataValue((Plugin) YPvP.getPlugin(), (Object) p.getUniqueId()));
 				ender.setShooter((ProjectileSource) null);
 			} else {
 				this.sendCooldown(p);

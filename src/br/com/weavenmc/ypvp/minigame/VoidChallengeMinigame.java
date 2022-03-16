@@ -18,7 +18,7 @@ import br.com.weavenmc.commons.bukkit.api.admin.AdminMode;
 import br.com.weavenmc.commons.bukkit.api.bossbar.BossBarAPI;
 import br.com.weavenmc.commons.bukkit.event.update.UpdateEvent;
 import br.com.weavenmc.commons.core.data.player.category.DataCategory;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.managers.TeleportManager;
 
@@ -41,17 +41,17 @@ public class VoidChallengeMinigame extends Minigame {
 		if (p.getAllowFlight() && !AdminMode.getInstance().isAdmin(p)) {
 			p.setAllowFlight(false);
 		}
-		p.sendMessage("§9§lTELEPORTE§f Voc\u00ea foi teleportado para §3§lVoid Challenge");
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voc\u00ea foi teleportado para ï¿½3ï¿½lVoid Challenge");
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		gamer.resetCombat();
 		if (gamer.getWarp() != null) {
 			gamer.getWarp().quit(p);
 		}
 		this.joinPlayer(p.getUniqueId());
-		yPvP.getPlugin().getCooldownManager().removeCooldown(p);
-		yPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
+		YPvP.getPlugin().getCooldownManager().removeCooldown(p);
+		YPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
 		gamer.setWarp(this);
-		gamer.setAbility(yPvP.getPlugin().getAbilityManager().getNone());
+		gamer.setAbility(YPvP.getPlugin().getAbilityManager().getNone());
 		this.teleport(p);
 		p.setHealth(20.0);
 		p.setFoodLevel(20);
@@ -63,7 +63,7 @@ public class VoidChallengeMinigame extends Minigame {
 			p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.MUSHROOM_SOUP) });
 		}
 		p.updateInventory();
-		yPvP.getPlugin().getScoreboardManager().createScoreboard(p);
+		YPvP.getPlugin().getScoreboardManager().createScoreboard(p);
 	}
 
 	public String timerFormat(final int time) {
@@ -118,12 +118,12 @@ public class VoidChallengeMinigame extends Minigame {
 		final Player p = event.getEntity();
 		if (this.voidTimers.containsKey(p.getUniqueId())) {
 			final int survivalTime = this.voidTimers.get(p.getUniqueId());
-			p.sendMessage("§5§lVOID CHALLENGE§f Voc\u00ea sobreviveu por §9§l"
-					+ this.getTimeFormat(survivalTime).toUpperCase() + "§f!");
+			p.sendMessage("ï¿½5ï¿½lVOID CHALLENGEï¿½f Voc\u00ea sobreviveu por ï¿½9ï¿½l"
+					+ this.getTimeFormat(survivalTime).toUpperCase() + "ï¿½f!");
 			if (survivalTime >= 1) {
 				final BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
 				bP.addMoney(survivalTime);
-				p.sendMessage("§6§lMOEDAS§f Voc\u00ea recebeu §6§l" + survivalTime + " MOEDAS");
+				p.sendMessage("ï¿½6ï¿½lMOEDASï¿½f Voc\u00ea recebeu ï¿½6ï¿½l" + survivalTime + " MOEDAS");
 				bP.save(new DataCategory[] { DataCategory.BALANCE });
 			}
 			this.voidTimers.remove(p.getUniqueId());
@@ -137,7 +137,7 @@ public class VoidChallengeMinigame extends Minigame {
 			return;
 		}
 		for (final Player o : Bukkit.getOnlinePlayers()) {
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(o.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(o.getUniqueId());
 			if (gamer.getWarp() != this) {
 				continue;
 			}
@@ -160,7 +160,7 @@ public class VoidChallengeMinigame extends Minigame {
 	@EventHandler
 	public void onDamage(final EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(((Player) event.getEntity()).getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(((Player) event.getEntity()).getUniqueId());
 			if (gamer.getWarp() == this) {
 				EntityDamageEvent.DamageCause cause = event.getCause();
 				if (cause != EntityDamageEvent.DamageCause.VOID) {

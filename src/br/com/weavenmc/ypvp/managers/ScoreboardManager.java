@@ -16,7 +16,7 @@ import br.com.weavenmc.commons.bukkit.scoreboard.StringScroller;
 import br.com.weavenmc.commons.core.account.League;
 import br.com.weavenmc.commons.core.data.player.type.DataType;
 import br.com.weavenmc.ypvp.Management;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.minigame.BattleMinigame;
 import br.com.weavenmc.ypvp.minigame.Minigame;
@@ -29,7 +29,7 @@ public class ScoreboardManager extends Management implements Listener {
 	private StringScroller scrollerChallenge;
 	private StringScroller scrollerVoid;
 
-	public ScoreboardManager(final yPvP plugin) {
+	public ScoreboardManager(final YPvP plugin) {
 		super(plugin);
 	}
 
@@ -67,76 +67,76 @@ public class ScoreboardManager extends Management implements Listener {
 		Minigame minigame = gamer.getWarp();
 		if (minigame.getName().equalsIgnoreCase("spawn")) {
 			final League league = bP.getLeague();
-			sidebar.setTitle("§2§lPVP");
-			sidebar.setText(12, "    §7pvp.nestymc.com.br     ");
+			sidebar.setTitle("ï¿½2ï¿½lPVP");
+			sidebar.setText(12, "    ï¿½7pvp.nestymc.com.br     ");
 			sidebar.setText(11, "");
-			sidebar.setText(10, "§fKills: §a" + bP.getData(DataType.PVP_KILLS).asInt());
-			sidebar.setText(9, "§fDeaths: §c" + bP.getData(DataType.PVP_DEATHS).asInt());
-			sidebar.setText(8, "§fKillStreak: §6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
+			sidebar.setText(10, "ï¿½fKills: ï¿½a" + bP.getData(DataType.PVP_KILLS).asInt());
+			sidebar.setText(9, "ï¿½fDeaths: ï¿½c" + bP.getData(DataType.PVP_DEATHS).asInt());
+			sidebar.setText(8, "ï¿½fKillStreak: ï¿½6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
 			sidebar.setText(7, "");
-			sidebar.setText(6, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
-			sidebar.setText(5, "§fXP: §b" + bP.getXp());
+			sidebar.setText(6, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+			sidebar.setText(5, "ï¿½fXP: ï¿½b" + bP.getXp());
 			sidebar.setText(4, "");
-			sidebar.setText(3, "§fKit: §b" + gamer.getAbility().getName());
+			sidebar.setText(3, "ï¿½fKit: ï¿½b" + gamer.getAbility().getName());
 			sidebar.setText(2, "");
-			sidebar.setText(1, "    §awww.nestymc.com.br     ");
+			sidebar.setText(1, "    ï¿½awww.nestymc.com.br     ");
 		} else if (minigame.getName().equalsIgnoreCase("fps")) {
 			final League league = bP.getLeague();
-			sidebar.setTitle("§2§lPVP");
-			sidebar.setText(12, "    §7pvp.nestymc.com.br     ");
+			sidebar.setTitle("ï¿½2ï¿½lPVP");
+			sidebar.setText(12, "    ï¿½7pvp.nestymc.com.br     ");
 			sidebar.setText(11, "");
-			sidebar.setText(10, "§fKills: §a" + bP.getData(DataType.PVP_KILLS).asInt());
-			sidebar.setText(9, "§fDeaths: §c" + bP.getData(DataType.PVP_DEATHS).asInt());
-			sidebar.setText(8, "§fKillStreak: §6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
+			sidebar.setText(10, "ï¿½fKills: ï¿½a" + bP.getData(DataType.PVP_KILLS).asInt());
+			sidebar.setText(9, "ï¿½fDeaths: ï¿½c" + bP.getData(DataType.PVP_DEATHS).asInt());
+			sidebar.setText(8, "ï¿½fKillStreak: ï¿½6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
 			sidebar.setText(7, "");
-			sidebar.setText(6, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
-			sidebar.setText(5, "§fXP: §b" + bP.getXp());
+			sidebar.setText(6, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+			sidebar.setText(5, "ï¿½fXP: ï¿½b" + bP.getXp());
 			sidebar.setText(4, "");
-			sidebar.setText(3, "§fKit: §b" + gamer.getAbility().getName());
+			sidebar.setText(3, "ï¿½fKit: ï¿½b" + gamer.getAbility().getName());
 			sidebar.setText(2, "");
-			sidebar.setText(1, "    §awww.nestymc.com.br     ");
+			sidebar.setText(1, "    ï¿½awww.nestymc.com.br     ");
 		} else if (minigame.getName().equalsIgnoreCase("1v1")) {
 			final League league = bP.getLeague();
-			sidebar.setTitle("§2§lPVP");
-			sidebar.setText(13, "    §7pvp.nestymc.com.br     ");
+			sidebar.setTitle("ï¿½2ï¿½lPVP");
+			sidebar.setText(13, "    ï¿½7pvp.nestymc.com.br     ");
 			sidebar.setText(12, "");
-			sidebar.setText(11, "§fKills: §a" + bP.getData(DataType.PVP_KILLS).asInt());
-			sidebar.setText(10, "§fDeaths: §c" + bP.getData(DataType.PVP_DEATHS).asInt());
-			sidebar.setText(9, "§fKillStreak: §6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
+			sidebar.setText(11, "ï¿½fKills: ï¿½a" + bP.getData(DataType.PVP_KILLS).asInt());
+			sidebar.setText(10, "ï¿½fDeaths: ï¿½c" + bP.getData(DataType.PVP_DEATHS).asInt());
+			sidebar.setText(9, "ï¿½fKillStreak: ï¿½6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
 			sidebar.setText(8, "");
-			sidebar.setText(7, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
-			sidebar.setText(6, "§fXP: §b" + bP.getXp());
+			sidebar.setText(7, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+			sidebar.setText(6, "ï¿½fXP: ï¿½b" + bP.getXp());
 			sidebar.setText(5, "");
-			sidebar.setText(4, "§fBatalhando contra:");
-			sidebar.setText(3, "§3" + ((BattleMinigame) minigame).getBattlePlayer(p));
+			sidebar.setText(4, "ï¿½fBatalhando contra:");
+			sidebar.setText(3, "ï¿½3" + ((BattleMinigame) minigame).getBattlePlayer(p));
 			sidebar.setText(2, "");
-			sidebar.setText(1, "    §awww.nestymc.com.br     ");
+			sidebar.setText(1, "    ï¿½awww.nestymc.com.br     ");
 		} else if (minigame.getName().equalsIgnoreCase("lava")) {
 			final League league = bP.getLeague();
-			sidebar.setTitle("§2§lPVP");
-			sidebar.setText(6, "    §7pvp.nestymc.com.br     ");
+			sidebar.setTitle("ï¿½2ï¿½lPVP");
+			sidebar.setText(6, "    ï¿½7pvp.nestymc.com.br     ");
 			sidebar.setText(5, "");
-			sidebar.setText(4, "§fXP: §b" + bP.getXp());
-			sidebar.setText(3, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+			sidebar.setText(4, "ï¿½fXP: ï¿½b" + bP.getXp());
+			sidebar.setText(3, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
 			sidebar.setText(2, "");
-			sidebar.setText(1, "    §awww.nestymc.com.br    ");
+			sidebar.setText(1, "    ï¿½awww.nestymc.com.br    ");
 		} else if (minigame.getName().equalsIgnoreCase("void")) {
 			final League league = bP.getLeague();
-			sidebar.setTitle("§2§lPVP");
-			sidebar.setText(9, "    §7pvp.nestymc.com.br     ");
+			sidebar.setTitle("ï¿½2ï¿½lPVP");
+			sidebar.setText(9, "    ï¿½7pvp.nestymc.com.br     ");
 			sidebar.setText(8, "");
-			sidebar.setText(7, "§fXP: §b" + bP.getXp());
-			sidebar.setText(6, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+			sidebar.setText(7, "ï¿½fXP: ï¿½b" + bP.getXp());
+			sidebar.setText(6, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
 			sidebar.setText(5, "");
 			if (p.getLocation().getY() <= -64.0) {
-				sidebar.setText(4, "§fSobreviveu:");
-				sidebar.setText(3, "§a" + ((VoidChallengeMinigame) minigame).getTimeSurviving(p));
+				sidebar.setText(4, "ï¿½fSobreviveu:");
+				sidebar.setText(3, "ï¿½a" + ((VoidChallengeMinigame) minigame).getTimeSurviving(p));
 			} else {
-				sidebar.setText(4, "§fPara §ainiciar§7 o desafio");
-				sidebar.setText(3, "§fdesafio pule no §5void§7!");
+				sidebar.setText(4, "ï¿½fPara ï¿½ainiciarï¿½7 o desafio");
+				sidebar.setText(3, "ï¿½fdesafio pule no ï¿½5voidï¿½7!");
 			}
 			sidebar.setText(2, "");
-			sidebar.setText(1, "    §awww.nestymc.com.br   ");
+			sidebar.setText(1, "    ï¿½awww.nestymc.com.br   ");
 		}
 		minigame = null;
 		sidebar = null;
@@ -168,59 +168,59 @@ public class ScoreboardManager extends Management implements Listener {
 			Minigame minigame = gamer.getWarp();
 			if (minigame.getName().equalsIgnoreCase("spawn")) {
 				final League league = bP.getLeague();
-				sidebar.setTitle("§2§lPVP");
-				sidebar.setText(12, "    §7pvp.nestymc.com.br     ");
+				sidebar.setTitle("ï¿½2ï¿½lPVP");
+				sidebar.setText(12, "    ï¿½7pvp.nestymc.com.br     ");
 				sidebar.setText(11, "");
-				sidebar.setText(10, "§fKills: §a" + bP.getData(DataType.PVP_KILLS).asInt());
-				sidebar.setText(9, "§fDeaths: §c" + bP.getData(DataType.PVP_DEATHS).asInt());
-				sidebar.setText(8, "§fKillStreak: §6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
+				sidebar.setText(10, "ï¿½fKills: ï¿½a" + bP.getData(DataType.PVP_KILLS).asInt());
+				sidebar.setText(9, "ï¿½fDeaths: ï¿½c" + bP.getData(DataType.PVP_DEATHS).asInt());
+				sidebar.setText(8, "ï¿½fKillStreak: ï¿½6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
 				sidebar.setText(7, "");
-				sidebar.setText(6, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
-				sidebar.setText(5, "§fXP: §b" + bP.getXp());
+				sidebar.setText(6, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+				sidebar.setText(5, "ï¿½fXP: ï¿½b" + bP.getXp());
 				sidebar.setText(4, "");
-				sidebar.setText(3, "§fKit: §b" + gamer.getAbility().getName());
+				sidebar.setText(3, "ï¿½fKit: ï¿½b" + gamer.getAbility().getName());
 				sidebar.setText(2, "");
-				sidebar.setText(1, "    §awww.nestymc.com.br     ");
+				sidebar.setText(1, "    ï¿½awww.nestymc.com.br     ");
 			} else if (minigame.getName().equalsIgnoreCase("fps")) {
 				final League league = bP.getLeague();
-				sidebar.setTitle("§2§lPVP");
-				sidebar.setText(12, "    §7pvp.nestymc.com.br     ");
+				sidebar.setTitle("ï¿½2ï¿½lPVP");
+				sidebar.setText(12, "    ï¿½7pvp.nestymc.com.br     ");
 				sidebar.setText(11, "");
-				sidebar.setText(10, "§fKills: §a" + bP.getData(DataType.PVP_KILLS).asInt());
-				sidebar.setText(9, "§fDeaths: §c" + bP.getData(DataType.PVP_DEATHS).asInt());
-				sidebar.setText(8, "§fKillStreak: §6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
+				sidebar.setText(10, "ï¿½fKills: ï¿½a" + bP.getData(DataType.PVP_KILLS).asInt());
+				sidebar.setText(9, "ï¿½fDeaths: ï¿½c" + bP.getData(DataType.PVP_DEATHS).asInt());
+				sidebar.setText(8, "ï¿½fKillStreak: ï¿½6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
 				sidebar.setText(7, "");
-				sidebar.setText(6, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
-				sidebar.setText(5, "§fXP: §b" + bP.getXp());
+				sidebar.setText(6, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+				sidebar.setText(5, "ï¿½fXP: ï¿½b" + bP.getXp());
 				sidebar.setText(4, "");
-				sidebar.setText(3, "§fKit: §b" + gamer.getAbility().getName());
+				sidebar.setText(3, "ï¿½fKit: ï¿½b" + gamer.getAbility().getName());
 				sidebar.setText(2, "");
-				sidebar.setText(1, "    §awww.nestymc.com.br     ");
+				sidebar.setText(1, "    ï¿½awww.nestymc.com.br     ");
 			} else if (minigame.getName().equalsIgnoreCase("1v1")) {
 				final League league = bP.getLeague();
-				sidebar.setTitle("§2§lPVP");
-				sidebar.setText(11, "§fKills: §a" + bP.getData(DataType.PVP_KILLS).asInt());
-				sidebar.setText(10, "§fDeaths: §c" + bP.getData(DataType.PVP_DEATHS).asInt());
-				sidebar.setText(9, "§fKillStreak: §6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
-				sidebar.setText(7, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
-				sidebar.setText(6, "§fXP: §b" + bP.getXp());
-				sidebar.setText(3, "§3" + ((BattleMinigame) minigame).getBattlePlayer(o));
+				sidebar.setTitle("ï¿½2ï¿½lPVP");
+				sidebar.setText(11, "ï¿½fKills: ï¿½a" + bP.getData(DataType.PVP_KILLS).asInt());
+				sidebar.setText(10, "ï¿½fDeaths: ï¿½c" + bP.getData(DataType.PVP_DEATHS).asInt());
+				sidebar.setText(9, "ï¿½fKillStreak: ï¿½6" + bP.getData(DataType.PVP_KILLSTREAK).asInt());
+				sidebar.setText(7, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+				sidebar.setText(6, "ï¿½fXP: ï¿½b" + bP.getXp());
+				sidebar.setText(3, "ï¿½3" + ((BattleMinigame) minigame).getBattlePlayer(o));
 			} else if (minigame.getName().equalsIgnoreCase("lava")) {
 				final League league = bP.getLeague();
-				sidebar.setTitle("§2§lPVP");
-				sidebar.setText(4, "§fXP: §b" + bP.getXp());
-				sidebar.setText(3, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+				sidebar.setTitle("ï¿½2ï¿½lPVP");
+				sidebar.setText(4, "ï¿½fXP: ï¿½b" + bP.getXp());
+				sidebar.setText(3, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
 			} else if (minigame.getName().equalsIgnoreCase("void")) {
 				final League league = bP.getLeague();
-				sidebar.setTitle("§2§lPVP");
-				sidebar.setText(7, "§fXP: §b" + bP.getXp());
-				sidebar.setText(6, "§fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
+				sidebar.setTitle("ï¿½2ï¿½lPVP");
+				sidebar.setText(7, "ï¿½fXP: ï¿½b" + bP.getXp());
+				sidebar.setText(6, "ï¿½fRank: " + league.getColor() + league.getSymbol() + " " + league.name());
 				if (o.getLocation().getY() <= -64.0) {
-					sidebar.setText(4, "§fSobreviveu:");
-					sidebar.setText(3, "§a" + ((VoidChallengeMinigame) minigame).getTimeSurviving(o));
+					sidebar.setText(4, "ï¿½fSobreviveu:");
+					sidebar.setText(3, "ï¿½a" + ((VoidChallengeMinigame) minigame).getTimeSurviving(o));
 				} else {
-					sidebar.setText(4, "§fPara §ainiciar§7 o desafio");
-					sidebar.setText(3, "§fdesafio pule no §5void§7!");
+					sidebar.setText(4, "ï¿½fPara ï¿½ainiciarï¿½7 o desafio");
+					sidebar.setText(3, "ï¿½fdesafio pule no ï¿½5voidï¿½7!");
 				}
 			}
 			this.updateTab(o, count);
@@ -235,10 +235,10 @@ public class ScoreboardManager extends Management implements Listener {
 		final BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
 		final int ping = PingAPI.getPing(p);
 		TabListAPI.setHeaderAndFooter(p,
-				"§6§lNESTY§f§lMC §e§lKITPVP\n§eMoedas: §f" + bP.getMoney() + " §9- §eTickets: §f" + bP.getTickets()
-						+ " §9- §ePing: §f" + ping + "\n" + "§eTemos §f" + onlineCount + "§e jogadores online!",
-				"§bNick: §f" + bP.getName() + " §9- §bLiga: §f" + bP.getLeague().name() + " §9- §bXP: §f" + bP.getXp()
-						+ "\n§bMais informa\u00e7\u00f5es em: §fwww.nestymc.com.br");
+				"ï¿½6ï¿½lNESTYï¿½fï¿½lMC ï¿½eï¿½lKITPVP\nï¿½eMoedas: ï¿½f" + bP.getMoney() + " ï¿½9- ï¿½eTickets: ï¿½f" + bP.getTickets()
+						+ " ï¿½9- ï¿½ePing: ï¿½f" + ping + "\n" + "ï¿½eTemos ï¿½f" + onlineCount + "ï¿½e jogadores online!",
+				"ï¿½bNick: ï¿½f" + bP.getName() + " ï¿½9- ï¿½bLiga: ï¿½f" + bP.getLeague().name() + " ï¿½9- ï¿½bXP: ï¿½f" + bP.getXp()
+						+ "\nï¿½bMais informa\u00e7\u00f5es em: ï¿½fwww.nestymc.com.br");
 	}
 
 	@Override

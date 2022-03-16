@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 
 import br.com.weavenmc.commons.util.ClassGetter;
 import br.com.weavenmc.ypvp.Management;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 import br.com.weavenmc.ypvp.ability.NoneAbility;
 
@@ -15,7 +15,7 @@ public class AbilityManager extends Management {
 	private List<Ability> abilities;
 	private final Ability none;
 
-	public AbilityManager(final yPvP plugin) {
+	public AbilityManager(final YPvP plugin) {
 		super(plugin);
 		this.abilities = new ArrayList<Ability>();
 		this.none = new NoneAbility();

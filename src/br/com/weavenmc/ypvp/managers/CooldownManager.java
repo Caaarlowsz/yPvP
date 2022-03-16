@@ -7,12 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.bukkit.entity.Player;
 
 import br.com.weavenmc.ypvp.Management;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 
 public class CooldownManager extends Management {
 	private Map<UUID, Long> C;
 
-	public CooldownManager(final yPvP plugin) {
+	public CooldownManager(final YPvP plugin) {
 		super(plugin);
 	}
 

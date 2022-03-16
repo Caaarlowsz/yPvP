@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class ForcefieldAbility extends Ability {
@@ -28,7 +28,7 @@ public class ForcefieldAbility extends Ability {
 		this.setGroupToUse(Group.BETA);
 		this.setIcon(Material.GOLDEN_APPLE);
 		this.setDescription(
-				new String[] { "§7Ative seu campo de for\u00e7a e hite", "§7todos \u00e1 6 blocos de distancia." });
+				new String[] { "ï¿½7Ative seu campo de for\u00e7a e hite", "ï¿½7todos \u00e1 6 blocos de distancia." });
 		this.setPrice(60000);
 		this.setTempPrice(6500);
 	}
@@ -50,7 +50,7 @@ public class ForcefieldAbility extends Ability {
 						((Damageable) nearby).damage(damage, (Entity) p);
 						if (nearby instanceof Player) {
 							((Player) nearby)
-									.sendMessage("§5§lFORCEFIELD§f Voc\u00ea est\u00e1 no campo de §9§l" + p.getName());
+									.sendMessage("ï¿½5ï¿½lFORCEFIELDï¿½f Voc\u00ea est\u00e1 no campo de ï¿½9ï¿½l" + p.getName());
 						}
 					}
 				}
@@ -59,13 +59,13 @@ public class ForcefieldAbility extends Ability {
 					this.addCooldown(p, 50);
 					p.updateInventory();
 					this.ff.add(p.getUniqueId());
-					p.sendMessage("§5§lFORCEFIELD§f Voc\u00ea §9§lATIVOU§f o seu §9§lCAMPO DE FOR\u00c7A");
-					Bukkit.getScheduler().runTaskLater((Plugin) yPvP.getPlugin(), () -> {
+					p.sendMessage("ï¿½5ï¿½lFORCEFIELDï¿½f Voc\u00ea ï¿½9ï¿½lATIVOUï¿½f o seu ï¿½9ï¿½lCAMPO DE FOR\u00c7A");
+					Bukkit.getScheduler().runTaskLater((Plugin) YPvP.getPlugin(), () -> {
 						p.updateInventory();
 						this.ff.remove(p.getUniqueId());
 					}, 320L);
 				} else {
-					p.sendMessage("§5§lFORCEFIELD§f O seu §9§lCAMPO DE FOR\u00c7A§f j\u00e1 est\u00e1 §9§lATIVADO");
+					p.sendMessage("ï¿½5ï¿½lFORCEFIELDï¿½f O seu ï¿½9ï¿½lCAMPO DE FOR\u00c7Aï¿½f j\u00e1 est\u00e1 ï¿½9ï¿½lATIVADO");
 				}
 			} else {
 				this.sendCooldown(p);

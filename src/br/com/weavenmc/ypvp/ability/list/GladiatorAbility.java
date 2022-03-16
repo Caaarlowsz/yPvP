@@ -31,7 +31,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.jnbt.DataException;
@@ -50,7 +50,7 @@ public class GladiatorAbility extends Ability {
 		this.setHasItem(true);
 		this.setGroupToUse(Group.PREMIUM);
 		this.setIcon(Material.IRON_FENCE);
-		this.setDescription(new String[] { "§7Puxe seu inimigo para um duelo", "§71v1 em uma arena nos c\u00e9us." });
+		this.setDescription(new String[] { "ï¿½7Puxe seu inimigo para um duelo", "ï¿½71v1 em uma arena nos c\u00e9us." });
 		this.setPrice(80000);
 		this.setTempPrice(8000);
 	}
@@ -72,9 +72,9 @@ public class GladiatorAbility extends Ability {
 				&& this.isItem(gladiator.getItemInHand())) {
 			event.setCancelled(true);
 			final Player target = (Player) event.getRightClicked();
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(target.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(target.getUniqueId());
 			if (gamer.getWarp().isProtected(target)) {
-				gladiator.sendMessage("§5§lGLADIATOR§f O jogador est\u00e1 com prote\u00e7\u00e3o de spawn!");
+				gladiator.sendMessage("ï¿½5ï¿½lGLADIATORï¿½f O jogador est\u00e1 com prote\u00e7\u00e3o de spawn!");
 				return;
 			}
 			if (this.callingToBattle.contains(target.getUniqueId())
@@ -86,10 +86,10 @@ public class GladiatorAbility extends Ability {
 			Schematic gladiatorArena = null;
 			try {
 				gladiatorArena = Schematic.getInstance()
-						.loadSchematic(new File(yPvP.getPlugin().getDataFolder(), "gladiator.schematic"));
+						.loadSchematic(new File(YPvP.getPlugin().getDataFolder(), "gladiator.schematic"));
 			} catch (IOException | DataException ex) {
 				ex.printStackTrace();
-				gladiator.sendMessage("§5§lGLADIATOR§f N\u00e3o foi possivel criar a §9§lARENA!");
+				gladiator.sendMessage("ï¿½5ï¿½lGLADIATORï¿½f N\u00e3o foi possivel criar a ï¿½9ï¿½lARENA!");
 				this.eject(target);
 				this.eject(gladiator);
 				return;
@@ -152,7 +152,7 @@ public class GladiatorAbility extends Ability {
 					if (GladiatorBattle.this.inBattle(event.getPlayer())) {
 						event.setCancelled(true);
 						event.getPlayer().sendMessage(
-								"§5§lGLADIATOR§f Voc\u00ea n\u00e3o pode usar comandos durante uma §9§lBATALHA!");
+								"ï¿½5ï¿½lGLADIATORï¿½f Voc\u00ea n\u00e3o pode usar comandos durante uma ï¿½9ï¿½lBATALHA!");
 					}
 				}
 
@@ -201,7 +201,7 @@ public class GladiatorAbility extends Ability {
 						GladiatorBattle.this.destroy();
 					}
 				}
-			}, (Plugin) yPvP.getPlugin());
+			}, (Plugin) YPvP.getPlugin());
 			this.callBattle(schematic, loc);
 		}
 
@@ -248,20 +248,20 @@ public class GladiatorAbility extends Ability {
 			this.target.teleport(new Location(loc.getWorld(), (double) (loc.getBlockX() + 16),
 					(double) (loc.getBlockY() + 2), (double) (loc.getBlockZ() + 16)));
 			this.gladiator.sendMessage(
-					"§5§lGLADIATOR§f Voc\u00ea desafiou §9§l" + this.target.getName() + "§f para uma batalha!");
-			this.target.sendMessage("§5§lGLADIATOR§f Voc\u00ea foi desafiado por §9§l" + this.gladiator.getName()
-					+ "§f para uma batalha!");
+					"ï¿½5ï¿½lGLADIATORï¿½f Voc\u00ea desafiou ï¿½9ï¿½l" + this.target.getName() + "ï¿½f para uma batalha!");
+			this.target.sendMessage("ï¿½5ï¿½lGLADIATORï¿½f Voc\u00ea foi desafiado por ï¿½9ï¿½l" + this.gladiator.getName()
+					+ "ï¿½f para uma batalha!");
 			this.whiterTask = new BukkitRunnable() {
 				public void run() {
 					GladiatorBattle.this.gladiator.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 1200, 5));
 					GladiatorBattle.this.target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 1200, 5));
 				}
-			}.runTaskLater((Plugin) yPvP.getPlugin(), 2400L);
+			}.runTaskLater((Plugin) YPvP.getPlugin(), 2400L);
 			this.endTask = new BukkitRunnable() {
 				public void run() {
 					GladiatorBattle.this.timeOut();
 				}
-			}.runTaskLater((Plugin) yPvP.getPlugin(), 3600L);
+			}.runTaskLater((Plugin) YPvP.getPlugin(), 3600L);
 			final boolean started = true;
 			this.started = started;
 			return started;

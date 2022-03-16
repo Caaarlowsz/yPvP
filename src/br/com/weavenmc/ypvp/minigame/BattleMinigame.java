@@ -43,7 +43,7 @@ import br.com.weavenmc.commons.core.account.WeavenPlayer;
 import br.com.weavenmc.commons.core.data.player.category.DataCategory;
 import br.com.weavenmc.commons.core.data.player.type.DataType;
 import br.com.weavenmc.commons.util.string.StringTimeUtils;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.event.SpectatorBattleEndEvent;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.managers.TeleportManager;
@@ -88,18 +88,18 @@ public class BattleMinigame extends Minigame {
 		if (p.getAllowFlight() && !AdminMode.getInstance().isAdmin(p)) {
 			p.setAllowFlight(false);
 		}
-		p.sendMessage("§9§lTELEPORTE§f Voc\u00ea foi teleportado para §3§l1v1");
+		p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voc\u00ea foi teleportado para ï¿½3ï¿½l1v1");
 		VanishAPI.getInstance().updateVanishToPlayer(p);
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		gamer.resetCombat();
 		if (gamer.getWarp() != null) {
 			gamer.getWarp().quit(p);
 		}
 		this.joinPlayer(p.getUniqueId());
-		yPvP.getPlugin().getCooldownManager().removeCooldown(p);
-		yPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
+		YPvP.getPlugin().getCooldownManager().removeCooldown(p);
+		YPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
 		gamer.setWarp(this);
-		gamer.setAbility(yPvP.getPlugin().getAbilityManager().getNone());
+		gamer.setAbility(YPvP.getPlugin().getAbilityManager().getNone());
 		p.setHealth(20.0);
 		p.setFoodLevel(20);
 		p.setFireTicks(0);
@@ -107,14 +107,14 @@ public class BattleMinigame extends Minigame {
 		p.getInventory().clear();
 		this.teleport(p);
 		p.getInventory().setArmorContents((ItemStack[]) null);
-		ItemBuilder builder = new ItemBuilder().type(Material.BLAZE_ROD).name("§6§l1v1 Normal");
+		ItemBuilder builder = new ItemBuilder().type(Material.BLAZE_ROD).name("ï¿½6ï¿½l1v1 Normal");
 		p.getInventory().setItem(3, builder.build());
-		builder = new ItemBuilder().type(Material.IRON_FENCE).name("§b§l1v1 Customizado");
+		builder = new ItemBuilder().type(Material.IRON_FENCE).name("ï¿½bï¿½l1v1 Customizado");
 		p.getInventory().setItem(4, builder.build());
-		builder = new ItemBuilder().type(Material.INK_SACK).durability(8).name("§e§l1v1 R\u00e1pido");
+		builder = new ItemBuilder().type(Material.INK_SACK).durability(8).name("ï¿½eï¿½l1v1 R\u00e1pido");
 		p.getInventory().setItem(5, builder.build());
 		p.updateInventory();
-		yPvP.getPlugin().getScoreboardManager().createScoreboard(p);
+		YPvP.getPlugin().getScoreboardManager().createScoreboard(p);
 	}
 
 	public void callBattleEnd(final Player player1, final Player player2) {
@@ -124,7 +124,7 @@ public class BattleMinigame extends Minigame {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onShow(final PlayerShowEvent event) {
 		final Player show = event.getToShow();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(show.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(show.getUniqueId());
 		if (gamer.hasSpectator()) {
 			event.setCancelled(true);
 		}
@@ -133,7 +133,7 @@ public class BattleMinigame extends Minigame {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onShow(final PlayerHideEvent event) {
 		final Player hide = event.getToHide();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(hide.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(hide.getUniqueId());
 		if (gamer.hasSpectator()) {
 			event.setCancelled(true);
 		}
@@ -141,7 +141,7 @@ public class BattleMinigame extends Minigame {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onSpectatorBattleEnd(final SpectatorBattleEndEvent event) {
-		for (final Gamer gamer : yPvP.getPlugin().getGamerManager().getGamers()) {
+		for (final Gamer gamer : YPvP.getPlugin().getGamerManager().getGamers()) {
 			if (!gamer.hasSpectator()) {
 				continue;
 			}
@@ -155,7 +155,7 @@ public class BattleMinigame extends Minigame {
 			}
 			gamer.setSpectator(null);
 			this.teleport(player);
-			player.sendMessage("§b§lESPECTAR§f O player acabou a luta!");
+			player.sendMessage("ï¿½bï¿½lESPECTARï¿½f O player acabou a luta!");
 			VanishAPI.getInstance().updateVanishToPlayer(player);
 		}
 	}
@@ -173,7 +173,7 @@ public class BattleMinigame extends Minigame {
 		if (this.battle.containsKey(event.getPlayer().getUniqueId())) {
 			event.setCancelled(true);
 			event.getPlayer()
-					.sendMessage("§4§lADMIN§f Voc\u00ea n\u00e3o pode entrar no Modo Admin durante uma batalha");
+					.sendMessage("ï¿½4ï¿½lADMINï¿½f Voc\u00ea n\u00e3o pode entrar no Modo Admin durante uma batalha");
 		}
 	}
 
@@ -208,7 +208,7 @@ public class BattleMinigame extends Minigame {
 	@EventHandler
 	public void onInteract(final PlayerInteractEvent event) {
 		final Player p = event.getPlayer();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		if (gamer.getWarp() == this) {
 			final ItemStack itemInHand = p.getItemInHand();
 			if (itemInHand.getType() == Material.INK_SACK) {
@@ -221,13 +221,13 @@ public class BattleMinigame extends Minigame {
 	public synchronized void callFastBattle(final Player p) {
 		final ItemStack itemInHand = p.getItemInHand();
 		if (itemInHand.getType() == Material.INK_SACK && itemInHand.hasItemMeta()) {
-			if (itemInHand.getItemMeta().getDisplayName().equals("§e§l1v1 R\u00e1pido")) {
+			if (itemInHand.getItemMeta().getDisplayName().equals("ï¿½eï¿½l1v1 R\u00e1pido")) {
 				if (this.nextBattle == null) {
 					this.nextBattle = p.getUniqueId();
 					p.setItemInHand(new ItemBuilder().type(Material.INK_SACK).durability(10)
-							.name("§e§lProcurando partidas").build());
+							.name("ï¿½eï¿½lProcurando partidas").build());
 					p.updateInventory();
-					p.sendMessage("§eO 1v1 R\u00e1pido est\u00e1 procurando algu\u00e9m para voc\u00ea batalhar!");
+					p.sendMessage("ï¿½eO 1v1 R\u00e1pido est\u00e1 procurando algu\u00e9m para voc\u00ea batalhar!");
 				} else {
 					final Player finded = Bukkit.getPlayer(this.nextBattle);
 					if (finded != null) {
@@ -237,25 +237,25 @@ public class BattleMinigame extends Minigame {
 							this.startNormalBattle(p, finded);
 							this.clearCustom(p, finded);
 							finded.sendMessage(
-									"§9O 1v1 R\u00e1pido encontrou algu\u00e9m para voc\u00ea lutar! O player escolhido foi §e"
+									"ï¿½9O 1v1 R\u00e1pido encontrou algu\u00e9m para voc\u00ea lutar! O player escolhido foi ï¿½e"
 											+ p.getName());
 							p.sendMessage(
-									"§9O 1v1 R\u00e1pido encontrou algu\u00e9m para voc\u00ea lutar! O player escolhido foi §e"
+									"ï¿½9O 1v1 R\u00e1pido encontrou algu\u00e9m para voc\u00ea lutar! O player escolhido foi ï¿½e"
 											+ finded.getName());
 						} else {
 							this.nextBattle = p.getUniqueId();
 							p.setItemInHand(new ItemBuilder().type(Material.INK_SACK).durability(10)
-									.name("§e§lProcurando partidas").build());
+									.name("ï¿½eï¿½lProcurando partidas").build());
 							p.updateInventory();
 							p.sendMessage(
-									"§eO 1v1 R\u00e1pido est\u00e1 procurando algu\u00e9m para voc\u00ea batalhar!");
+									"ï¿½eO 1v1 R\u00e1pido est\u00e1 procurando algu\u00e9m para voc\u00ea batalhar!");
 						}
 					} else {
 						this.nextBattle = p.getUniqueId();
 						p.setItemInHand(new ItemBuilder().type(Material.INK_SACK).durability(10)
-								.name("§e§lProcurando partidas").build());
+								.name("ï¿½eï¿½lProcurando partidas").build());
 						p.updateInventory();
-						p.sendMessage("§eO 1v1 R\u00e1pido est\u00e1 procurando algu\u00e9m para voc\u00ea batalhar!");
+						p.sendMessage("ï¿½eO 1v1 R\u00e1pido est\u00e1 procurando algu\u00e9m para voc\u00ea batalhar!");
 					}
 				}
 			} else {
@@ -263,9 +263,9 @@ public class BattleMinigame extends Minigame {
 					this.nextBattle = null;
 				}
 				p.setItemInHand(
-						new ItemBuilder().type(Material.INK_SACK).durability(8).name("§e§l1v1 R\u00e1pido").build());
+						new ItemBuilder().type(Material.INK_SACK).durability(8).name("ï¿½eï¿½l1v1 R\u00e1pido").build());
 				p.updateInventory();
-				p.sendMessage("§eO 1v1 R\u00e1pido parou de procurar algu\u00e9m para voc\u00ea batalhar!");
+				p.sendMessage("ï¿½eO 1v1 R\u00e1pido parou de procurar algu\u00e9m para voc\u00ea batalhar!");
 			}
 		}
 	}
@@ -274,12 +274,12 @@ public class BattleMinigame extends Minigame {
 	public void onChallenge(final PlayerInteractEntityEvent event) {
 		if (event.getRightClicked() instanceof Player) {
 			final Player p = event.getPlayer();
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			final ItemStack itemInHand = p.getItemInHand();
 			if (gamer.getWarp() == this && !this.battle.containsKey(p.getUniqueId())) {
-				if (!yPvP.getPlugin().getCooldownManager().hasCooldown(p)) {
+				if (!YPvP.getPlugin().getCooldownManager().hasCooldown(p)) {
 					final Player challenged = (Player) event.getRightClicked();
-					final Gamer g = yPvP.getPlugin().getGamerManager().getGamer(challenged.getUniqueId());
+					final Gamer g = YPvP.getPlugin().getGamerManager().getGamer(challenged.getUniqueId());
 					if (g.getWarp() == this && !this.battle.containsKey(challenged.getUniqueId())) {
 						if (itemInHand.getType() == Material.BLAZE_ROD) {
 							event.setCancelled(true);
@@ -288,13 +288,13 @@ public class BattleMinigame extends Minigame {
 								this.clearRequests(p, challenged);
 								this.startNormalBattle(challenged, p);
 								this.clearCustom(challenged, p);
-								challenged.sendMessage("§b" + p.getName() + "§2 aceitou seu desafio");
-								p.sendMessage("§2Voc\u00ea aceitou o desafio de §b" + challenged.getName());
+								challenged.sendMessage("ï¿½b" + p.getName() + "ï¿½2 aceitou seu desafio");
+								p.sendMessage("ï¿½2Voc\u00ea aceitou o desafio de ï¿½b" + challenged.getName());
 							} else {
-								yPvP.getPlugin().getCooldownManager().addCooldown(p, 5);
+								YPvP.getPlugin().getCooldownManager().addCooldown(p, 5);
 								p.sendMessage(
-										"§7Voc\u00ea enviou um desafio de 1v1 normal para §b" + challenged.getName());
-								challenged.sendMessage("§eVoc\u00ea recebeu desafio de 1v1 normal de §7" + p.getName());
+										"ï¿½7Voc\u00ea enviou um desafio de 1v1 normal para ï¿½b" + challenged.getName());
+								challenged.sendMessage("ï¿½eVoc\u00ea recebeu desafio de 1v1 normal de ï¿½7" + p.getName());
 								final List<UUID> challengers = this.normalChallenge.containsKey(
 										challenged.getUniqueId()) ? this.normalChallenge.get(challenged.getUniqueId())
 												: new ArrayList<UUID>();
@@ -307,15 +307,15 @@ public class BattleMinigame extends Minigame {
 													.remove(p.getUniqueId());
 										}
 									}
-								}.runTaskLater((Plugin) yPvP.getPlugin(), 100L);
+								}.runTaskLater((Plugin) YPvP.getPlugin(), 100L);
 							}
 						} else if (itemInHand.getType() == Material.IRON_FENCE) {
 							if (this.customChallenge.containsKey(p.getUniqueId())
 									&& this.customChallenge.get(p.getUniqueId()).equals(challenged.getUniqueId())) {
 								this.clearRequests(challenged, p);
 								this.startCustomBattle(challenged, p);
-								challenged.sendMessage("§b" + p.getName() + "§2 aceitou seu desafio");
-								p.sendMessage("§2Voc\u00ea aceitou o desafio de §b" + challenged.getName());
+								challenged.sendMessage("ï¿½b" + p.getName() + "ï¿½2 aceitou seu desafio");
+								p.sendMessage("ï¿½2Voc\u00ea aceitou o desafio de ï¿½b" + challenged.getName());
 							} else {
 								this.customCalling.put(p.getUniqueId(), challenged.getUniqueId());
 								this.customCalling.put(challenged.getUniqueId(), p.getUniqueId());
@@ -325,8 +325,8 @@ public class BattleMinigame extends Minigame {
 					}
 				} else {
 					final String millis = StringTimeUtils
-							.toMillis(yPvP.getPlugin().getCooldownManager().getCooldown(p));
-					p.sendMessage("§cAguarde " + millis + " para desafiar novamente");
+							.toMillis(YPvP.getPlugin().getCooldownManager().getCooldown(p));
+					p.sendMessage("ï¿½cAguarde " + millis + " para desafiar novamente");
 				}
 			}
 		}
@@ -343,33 +343,33 @@ public class BattleMinigame extends Minigame {
 
 	public void openCustomInventoryFor(final Player p, final Player challenged) {
 		this.defautCustom(p);
-		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 54, "§c1v1 contra " + challenged.getName());
+		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 54, "ï¿½c1v1 contra " + challenged.getName());
 		for (int i = 0; i < 54; ++i) {
-			menu.setItem(i, new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("§b§l-").durability(8).build());
+			menu.setItem(i, new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("ï¿½bï¿½l-").durability(8).build());
 		}
-		ItemBuilder builder = new ItemBuilder().type(Material.WOOL).name("§a§lDesafiar Jogador").durability(5);
+		ItemBuilder builder = new ItemBuilder().type(Material.WOOL).name("ï¿½aï¿½lDesafiar Jogador").durability(5);
 		menu.setItem(43, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).name("§a§lDesafiar Jogador").durability(5);
+		builder = new ItemBuilder().type(Material.WOOL).name("ï¿½aï¿½lDesafiar Jogador").durability(5);
 		menu.setItem(44, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).name("§a§lDesafiar Jogador").durability(5);
+		builder = new ItemBuilder().type(Material.WOOL).name("ï¿½aï¿½lDesafiar Jogador").durability(5);
 		menu.setItem(52, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).name("§a§lDesafiar Jogador").durability(5);
+		builder = new ItemBuilder().type(Material.WOOL).name("ï¿½aï¿½lDesafiar Jogador").durability(5);
 		menu.setItem(53, builder.build());
 		if (this.swordType.containsKey(p.getUniqueId())) {
 			final Material sword = this.swordType.get(p.getUniqueId());
 			builder = new ItemBuilder().type(sword);
 			if (sword == Material.WOOD_SWORD) {
-				builder.name("§6Espada de Madeira")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua espada!", "" });
+				builder.name("ï¿½6Espada de Madeira")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" });
 			} else if (sword == Material.STONE_SWORD) {
-				builder.name("§6Espada de Pedra")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua espada!", "" });
+				builder.name("ï¿½6Espada de Pedra")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" });
 			} else if (sword == Material.IRON_SWORD) {
-				builder.name("§6Espada de Ferro")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua espada!", "" });
+				builder.name("ï¿½6Espada de Ferro")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" });
 			} else if (sword == Material.DIAMOND_SWORD) {
-				builder.name("§6Espada de Diamante")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua espada!", "" });
+				builder.name("ï¿½6Espada de Diamante")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" });
 			}
 			menu.setItem(20, builder.build());
 		}
@@ -377,17 +377,17 @@ public class BattleMinigame extends Minigame {
 			final Material armour = this.armourType.get(p.getUniqueId());
 			builder = new ItemBuilder().type(armour);
 			if (armour == Material.LEATHER_CHESTPLATE) {
-				builder.name("§eArmadura de Couro")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" });
+				builder.name("ï¿½eArmadura de Couro")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" });
 			} else if (armour == Material.IRON_CHESTPLATE) {
-				builder.name("§eArmadura de Ferro")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" });
+				builder.name("ï¿½eArmadura de Ferro")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" });
 			} else if (armour == Material.DIAMOND_CHESTPLATE) {
-				builder.name("§eArmadura de Diamente")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" });
+				builder.name("ï¿½eArmadura de Diamente")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" });
 			} else if (armour == Material.GOLD_HELMET) {
-				builder.name("§eSem armadura")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" });
+				builder.name("ï¿½eSem armadura")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" });
 			}
 			menu.setItem(21, builder.build());
 		}
@@ -395,41 +395,41 @@ public class BattleMinigame extends Minigame {
 			final Material recraft = this.recraftType.get(p.getUniqueId());
 			builder = new ItemBuilder().type(recraft);
 			if (recraft == Material.RED_MUSHROOM) {
-				builder.name("§bRecrafts de Cogumelo")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de seu recraft!", "" });
+				builder.name("ï¿½bRecrafts de Cogumelo")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de seu recraft!", "" });
 			} else if (recraft == Material.COCOA) {
-				builder.name("§bRecrafts de Cocoabean")
-						.lore(new String[] { "§3Clique aqui para mudar", "§3o tipo de seu recraft!", "" });
+				builder.name("ï¿½bRecrafts de Cocoabean")
+						.lore(new String[] { "ï¿½3Clique aqui para mudar", "ï¿½3o tipo de seu recraft!", "" });
 			}
 			menu.setItem(22, builder.build());
 		}
 		if (this.recraftOption.containsKey(p.getUniqueId())) {
 			if (this.recraftOption.get(p.getUniqueId())) {
-				builder = new ItemBuilder().type(Material.BROWN_MUSHROOM).name("§aCom Recraft")
-						.lore(new String[] { "§3Clique aqui para", "§3desativar o recraft!", "" });
+				builder = new ItemBuilder().type(Material.BROWN_MUSHROOM).name("ï¿½aCom Recraft")
+						.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3desativar o recraft!", "" });
 			} else {
-				builder = new ItemBuilder().type(Material.MAGMA_CREAM).name("§cSem Recraft")
-						.lore(new String[] { "§3Clique aqui para", "§3ativar o recraft!", "" });
+				builder = new ItemBuilder().type(Material.MAGMA_CREAM).name("ï¿½cSem Recraft")
+						.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3ativar o recraft!", "" });
 			}
 			menu.setItem(23, builder.build());
 		}
 		if (this.sharpOption.containsKey(p.getUniqueId())) {
 			if (this.sharpOption.get(p.getUniqueId())) {
-				builder = new ItemBuilder().type(Material.ENCHANTED_BOOK).name("§3Com Sharpness")
-						.lore(new String[] { "§3Clique aqui para", "§3tirar a afia\u00e7ao da espada!", "" });
+				builder = new ItemBuilder().type(Material.ENCHANTED_BOOK).name("ï¿½3Com Sharpness")
+						.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3tirar a afia\u00e7ao da espada!", "" });
 			} else {
-				builder = new ItemBuilder().type(Material.BOOK).name("§3Sem Sharpness")
-						.lore(new String[] { "§3Clique aqui para", "§3colocar afia\u00e7ao na espada!", "" });
+				builder = new ItemBuilder().type(Material.BOOK).name("ï¿½3Sem Sharpness")
+						.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3colocar afia\u00e7ao na espada!", "" });
 			}
 			menu.setItem(24, builder.build());
 		}
 		if (this.fullSoupOption.containsKey(p.getUniqueId())) {
 			if (this.fullSoupOption.get(p.getUniqueId())) {
-				builder = new ItemBuilder().type(Material.MUSHROOM_SOUP).name("§2Full Sopa")
-						.lore(new String[] { "§3Clique aqui para", "§3usar 1 hotbar apenas", "" });
+				builder = new ItemBuilder().type(Material.MUSHROOM_SOUP).name("ï¿½2Full Sopa")
+						.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3usar 1 hotbar apenas", "" });
 			} else {
-				builder = new ItemBuilder().type(Material.BOWL).name("§21 Hotbar")
-						.lore(new String[] { "§3Clique aqui para", "§3usar full sopa", "" });
+				builder = new ItemBuilder().type(Material.BOWL).name("ï¿½21 Hotbar")
+						.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3usar full sopa", "" });
 			}
 			menu.setItem(29, builder.build());
 		}
@@ -440,7 +440,7 @@ public class BattleMinigame extends Minigame {
 	public void onDamage(final EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
 			final Player p = (Player) event.getEntity();
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (gamer.getWarp() == this) {
 				if (this.battle.containsKey(p.getUniqueId())) {
 					if (event.getCause() == EntityDamageEvent.DamageCause.FIRE
@@ -460,8 +460,8 @@ public class BattleMinigame extends Minigame {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			final Player e = (Player) event.getEntity();
 			final Player d = (Player) event.getDamager();
-			final Gamer entity = yPvP.getPlugin().getGamerManager().getGamer(e.getUniqueId());
-			final Gamer damager = yPvP.getPlugin().getGamerManager().getGamer(d.getUniqueId());
+			final Gamer entity = YPvP.getPlugin().getGamerManager().getGamer(e.getUniqueId());
+			final Gamer damager = YPvP.getPlugin().getGamerManager().getGamer(d.getUniqueId());
 			if (entity.getWarp() == this || damager.getWarp() == this) {
 				if (!this.battle.containsKey(e.getUniqueId())) {
 					event.setCancelled(true);
@@ -494,7 +494,7 @@ public class BattleMinigame extends Minigame {
 		final Player p = event.getPlayer();
 		if (this.battle.containsKey(p.getUniqueId())) {
 			event.setCancelled(true);
-			p.sendMessage("§b§l1V1§f Voc\u00ea n\u00e3o pode executar comandos durante a batalha!");
+			p.sendMessage("ï¿½bï¿½l1V1ï¿½f Voc\u00ea n\u00e3o pode executar comandos durante a batalha!");
 		}
 	}
 
@@ -508,7 +508,7 @@ public class BattleMinigame extends Minigame {
 			bPLoser.getData(DataType.PVP_DEATHS).setValue((Object) (++deaths));
 			final Player winner = Bukkit.getPlayer((UUID) this.battle.get(logout.getUniqueId()));
 			this.callBattleEnd(logout, winner);
-			winner.sendMessage("§c" + logout.getName() + " deslogou.");
+			winner.sendMessage("ï¿½c" + logout.getName() + " deslogou.");
 			this.battle.remove(logout.getUniqueId());
 			this.battle.remove(winner.getUniqueId());
 			this.checkLostKs(logout, winner, bPLoser.getData(DataType.PVP_KILLSTREAK).asInt());
@@ -524,10 +524,10 @@ public class BattleMinigame extends Minigame {
 			final int xp = this.calculateXp((WeavenPlayer) bPWinner, (WeavenPlayer) bPLoser);
 			bPWinner.addXp(xp);
 			bPWinner.addMoney(80);
-			winner.sendMessage("§e§lKILL§f Voc\u00ea matou §e§l" + logout.getName());
-			winner.sendMessage("§6§lMONEY§f Voc\u00ea recebeu §6§l80 MOEDAS");
-			winner.sendMessage("§9§lXP§f Voc\u00ea recebeu §9§l" + xp + " XPs"
-					+ (bPWinner.isDoubleXPActived() ? " §7(doublexp)" : ""));
+			winner.sendMessage("ï¿½eï¿½lKILLï¿½f Voc\u00ea matou ï¿½eï¿½l" + logout.getName());
+			winner.sendMessage("ï¿½6ï¿½lMONEYï¿½f Voc\u00ea recebeu ï¿½6ï¿½l80 MOEDAS");
+			winner.sendMessage("ï¿½9ï¿½lXPï¿½f Voc\u00ea recebeu ï¿½9ï¿½l" + xp + " XPs"
+					+ (bPWinner.isDoubleXPActived() ? " ï¿½7(doublexp)" : ""));
 			int kills = bPWinner.getData(DataType.PVP_KILLS).asInt();
 			bPWinner.getData(DataType.PVP_KILLS).setValue((Object) (++kills));
 			this.checkKs(winner, streak);
@@ -574,7 +574,7 @@ public class BattleMinigame extends Minigame {
 			return;
 		}
 		if (String.valueOf(ks).endsWith("0") || String.valueOf(ks).endsWith("5")) {
-			Bukkit.broadcastMessage("§4§lKILLSTREAK §1§l" + p.getName() + " §fconseguiu um §6§lKILLSTREAK DE " + ks);
+			Bukkit.broadcastMessage("ï¿½4ï¿½lKILLSTREAK ï¿½1ï¿½l" + p.getName() + " ï¿½fconseguiu um ï¿½6ï¿½lKILLSTREAK DE " + ks);
 		}
 	}
 
@@ -582,8 +582,8 @@ public class BattleMinigame extends Minigame {
 		if (ks < 10) {
 			return;
 		}
-		Bukkit.broadcastMessage("§4§lKILLSTREAK §1§l" + p.getName() + "§f perdeu seu §6§lKILLSTREAK DE " + ks
-				+ " PARA §c§l" + k.getName());
+		Bukkit.broadcastMessage("ï¿½4ï¿½lKILLSTREAK ï¿½1ï¿½l" + p.getName() + "ï¿½f perdeu seu ï¿½6ï¿½lKILLSTREAK DE " + ks
+				+ " PARA ï¿½cï¿½l" + k.getName());
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -597,9 +597,9 @@ public class BattleMinigame extends Minigame {
 			l.killer = (EntityHuman) ((CraftPlayer) winner).getHandle();
 			final String restingLife = StringTimeUtils.toMillis(winner.getHealth() / 2.0);
 			final int restingSoups = this.itemsInInventory((Inventory) winner.getInventory(), Material.MUSHROOM_SOUP);
-			winner.sendMessage("§cVoc\u00ea venceu o 1v1 contra " + loser.getName() + " com " + restingLife
+			winner.sendMessage("ï¿½cVoc\u00ea venceu o 1v1 contra " + loser.getName() + " com " + restingLife
 					+ " cora\u00e7oes e " + restingSoups + " sopas restantes");
-			loser.sendMessage("§c" + winner.getName() + " venceu o 1v1 com " + restingLife + " cora\u00e7oes e "
+			loser.sendMessage("ï¿½c" + winner.getName() + " venceu o 1v1 com " + restingLife + " cora\u00e7oes e "
 					+ restingSoups + " sopas restantes");
 			this.battle.remove(winner.getUniqueId());
 			this.battle.remove(loser.getUniqueId());
@@ -648,119 +648,119 @@ public class BattleMinigame extends Minigame {
 					final Player t = Bukkit.getPlayer((UUID) this.customCalling.get(p.getUniqueId()));
 					if (t != null) {
 						final Inventory menu = event.getInventory();
-						if (menu.getName().equalsIgnoreCase("§c1v1 contra " + t.getName())) {
+						if (menu.getName().equalsIgnoreCase("ï¿½c1v1 contra " + t.getName())) {
 							event.setCancelled(true);
 							if (currentItem.getType() == Material.WOOD_SWORD) {
 								this.swordType.put(p.getUniqueId(), Material.STONE_SWORD);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.STONE_SWORD)
-												.name("§6Espada de Pedra").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua espada!", "" })
+												.name("ï¿½6Espada de Pedra").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.STONE_SWORD) {
 								this.swordType.put(p.getUniqueId(), Material.IRON_SWORD);
 								menu.setItem(currentSlot,
 										new ItemBuilder()
-												.type(Material.IRON_SWORD).name("§6Espada de Ferro").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua espada!", "" })
+												.type(Material.IRON_SWORD).name("ï¿½6Espada de Ferro").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.IRON_SWORD) {
 								this.swordType.put(p.getUniqueId(), Material.DIAMOND_SWORD);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.DIAMOND_SWORD)
-												.name("§6Espada de Diamente").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua espada!", "" })
+												.name("ï¿½6Espada de Diamente").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.DIAMOND_SWORD) {
 								this.swordType.put(p.getUniqueId(), Material.WOOD_SWORD);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.WOOD_SWORD)
-												.name("§6Espada de Madeira").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua espada!", "" })
+												.name("ï¿½6Espada de Madeira").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua espada!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.LEATHER_CHESTPLATE) {
 								this.armourType.put(p.getUniqueId(), Material.IRON_CHESTPLATE);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.IRON_CHESTPLATE)
-												.name("§eArmadura de Ferro").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" })
+												.name("ï¿½eArmadura de Ferro").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.IRON_CHESTPLATE) {
 								this.armourType.put(p.getUniqueId(), Material.DIAMOND_CHESTPLATE);
 								menu.setItem(currentSlot,
 										new ItemBuilder().type(Material.DIAMOND_CHESTPLATE)
-												.name("§eArmadura de Diamante").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" })
+												.name("ï¿½eArmadura de Diamante").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.DIAMOND_CHESTPLATE) {
 								this.armourType.put(p.getUniqueId(), Material.GOLD_HELMET);
 								menu.setItem(currentSlot,
 										new ItemBuilder()
-												.type(Material.GOLD_HELMET).name("§eSem Armadura").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" })
+												.type(Material.GOLD_HELMET).name("ï¿½eSem Armadura").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.GOLD_HELMET) {
 								this.armourType.put(p.getUniqueId(), Material.LEATHER_CHESTPLATE);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.LEATHER_CHESTPLATE)
-												.name("§eArmadura de Couro").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de sua armadura!", "" })
+												.name("ï¿½eArmadura de Couro").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de sua armadura!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.RED_MUSHROOM) {
 								this.recraftType.put(p.getUniqueId(), Material.CACTUS);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.CACTUS)
-												.name("§bRecrafts de Cocoabean").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de seu recraft!", "" })
+												.name("ï¿½bRecrafts de Cocoabean").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de seu recraft!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.CACTUS) {
 								this.recraftType.put(p.getUniqueId(), Material.RED_MUSHROOM);
 								menu.setItem(
 										currentSlot, new ItemBuilder().type(Material.RED_MUSHROOM)
-												.name("§bRecrafts de Cogumelo").lore(new String[] {
-														"§3Clique aqui para mudar", "§3o tipo de seu recraft!", "" })
+												.name("ï¿½bRecrafts de Cogumelo").lore(new String[] {
+														"ï¿½3Clique aqui para mudar", "ï¿½3o tipo de seu recraft!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.BROWN_MUSHROOM) {
 								this.recraftOption.put(p.getUniqueId(), false);
 								menu.setItem(currentSlot,
-										new ItemBuilder().type(Material.MAGMA_CREAM).name("§cSem Recraft")
-												.lore(new String[] { "§3Clique aqui para", "§3ativar o recraft!", "" })
+										new ItemBuilder().type(Material.MAGMA_CREAM).name("ï¿½cSem Recraft")
+												.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3ativar o recraft!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.MAGMA_CREAM) {
 								this.recraftOption.put(p.getUniqueId(), true);
 								menu.setItem(currentSlot,
-										new ItemBuilder().type(Material.BROWN_MUSHROOM).name("§aCom Recraft").lore(
-												new String[] { "§3Clique aqui para", "§3desativar o recraft!", "" })
+										new ItemBuilder().type(Material.BROWN_MUSHROOM).name("ï¿½aCom Recraft").lore(
+												new String[] { "ï¿½3Clique aqui para", "ï¿½3desativar o recraft!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.ENCHANTED_BOOK) {
 								this.sharpOption.put(p.getUniqueId(), false);
 								menu.setItem(currentSlot,
 										new ItemBuilder()
-												.type(Material.BOOK).name("§3Sem Sharpness").lore(new String[] {
-														"§3Clique aqui para", "§3colocar afia\u00e7ao na espada!", "" })
+												.type(Material.BOOK).name("ï¿½3Sem Sharpness").lore(new String[] {
+														"ï¿½3Clique aqui para", "ï¿½3colocar afia\u00e7ao na espada!", "" })
 												.build());
 							} else if (currentItem.getType() == Material.BOOK) {
 								this.sharpOption.put(p.getUniqueId(), true);
 								menu.setItem(currentSlot, new ItemBuilder()
-										.type(Material.ENCHANTED_BOOK).name("§3Com Sharpness").lore(new String[] {
-												"§3Clique aqui para", "§3tirar a afia\u00e7ao da espada!", "" })
+										.type(Material.ENCHANTED_BOOK).name("ï¿½3Com Sharpness").lore(new String[] {
+												"ï¿½3Clique aqui para", "ï¿½3tirar a afia\u00e7ao da espada!", "" })
 										.build());
 							} else if (currentItem.getType() == Material.MUSHROOM_SOUP) {
 								this.fullSoupOption.put(p.getUniqueId(), false);
-								menu.setItem(currentSlot, new ItemBuilder().type(Material.BOWL).name("§21 Hotbar")
-										.lore(new String[] { "§3Clique aqui para", "§3usar full sopa", "" }).build());
+								menu.setItem(currentSlot, new ItemBuilder().type(Material.BOWL).name("ï¿½21 Hotbar")
+										.lore(new String[] { "ï¿½3Clique aqui para", "ï¿½3usar full sopa", "" }).build());
 							} else if (currentItem.getType() == Material.BOWL) {
 								this.fullSoupOption.put(p.getUniqueId(), true);
 								menu.setItem(currentSlot,
-										new ItemBuilder().type(Material.MUSHROOM_SOUP).name("§2Full Sopa").lore(
-												new String[] { "§3Clique aqui para", "§3usar 1 hotbar apenas", "" })
+										new ItemBuilder().type(Material.MUSHROOM_SOUP).name("ï¿½2Full Sopa").lore(
+												new String[] { "ï¿½3Clique aqui para", "ï¿½3usar 1 hotbar apenas", "" })
 												.build());
 							} else if (currentItem.getType() == Material.WOOL) {
 								p.closeInventory();
-								yPvP.getPlugin().getCooldownManager().addCooldown(p, 5);
+								YPvP.getPlugin().getCooldownManager().addCooldown(p, 5);
 								this.customChallenge.put(t.getUniqueId(), p.getUniqueId());
-								p.sendMessage("§7Voc\u00ea enviou um desafio de 1v1 customizado para §b" + t.getName());
-								t.sendMessage("§eVoc\u00ea recebeu desafio de 1v1 customizado de §7" + p.getName());
+								p.sendMessage("ï¿½7Voc\u00ea enviou um desafio de 1v1 customizado para ï¿½b" + t.getName());
+								t.sendMessage("ï¿½eVoc\u00ea recebeu desafio de 1v1 customizado de ï¿½7" + p.getName());
 								new BukkitRunnable() {
 									public void run() {
 										if (BattleMinigame.this.customChallenge.containsKey(t.getUniqueId())
@@ -769,13 +769,13 @@ public class BattleMinigame extends Minigame {
 											BattleMinigame.this.customChallenge.remove(t.getUniqueId());
 										}
 									}
-								}.runTaskLater((Plugin) yPvP.getPlugin(), 100L);
+								}.runTaskLater((Plugin) YPvP.getPlugin(), 100L);
 							}
 						}
 					} else {
 						p.closeInventory();
 						this.customCalling.remove(p.getUniqueId());
-						p.sendMessage("§cO jogador desafiado n\u00e3o foi encontrado.");
+						p.sendMessage("ï¿½cO jogador desafiado n\u00e3o foi encontrado.");
 					}
 				}
 			}
@@ -785,8 +785,8 @@ public class BattleMinigame extends Minigame {
 	public void startCustomBattle(final Player custommer, final Player challenged) {
 		this.battle.put(custommer.getUniqueId(), challenged.getUniqueId());
 		this.battle.put(challenged.getUniqueId(), custommer.getUniqueId());
-		final Location pos1 = yPvP.getPlugin().getLocationManager().getLocation("1v1loc1");
-		final Location pos2 = yPvP.getPlugin().getLocationManager().getLocation("1v1loc2");
+		final Location pos1 = YPvP.getPlugin().getLocationManager().getLocation("1v1loc1");
+		final Location pos2 = YPvP.getPlugin().getLocationManager().getLocation("1v1loc2");
 		if (pos1 != null && pos2 != null) {
 			custommer.teleport(pos1);
 			challenged.teleport(pos2);
@@ -808,8 +808,8 @@ public class BattleMinigame extends Minigame {
 	public void startNormalBattle(final Player p1, final Player p2) {
 		this.battle.put(p1.getUniqueId(), p2.getUniqueId());
 		this.battle.put(p2.getUniqueId(), p1.getUniqueId());
-		final Location pos1 = yPvP.getPlugin().getLocationManager().getLocation("1v1loc1");
-		final Location pos2 = yPvP.getPlugin().getLocationManager().getLocation("1v1loc2");
+		final Location pos1 = YPvP.getPlugin().getLocationManager().getLocation("1v1loc1");
+		final Location pos2 = YPvP.getPlugin().getLocationManager().getLocation("1v1loc2");
 		if (pos1 != null && pos2 != null) {
 			p1.teleport(pos1);
 			p2.teleport(pos2);
@@ -912,7 +912,7 @@ public class BattleMinigame extends Minigame {
 		for (int i = 1; i < 9; ++i) {
 			p.getInventory().setItem(i, new ItemStack(Material.MUSHROOM_SOUP));
 		}
-		if (yPvP.getPlugin().getPvpType() == yPvP.PvPType.FULLIRON) {
+		if (YPvP.getPlugin().getPvpType() == YPvP.PvPType.FULLIRON) {
 			ItemBuilder builder = new ItemBuilder().type(Material.IRON_HELMET);
 			p.getInventory().setHelmet(builder.build());
 			builder = new ItemBuilder().type(Material.IRON_CHESTPLATE);

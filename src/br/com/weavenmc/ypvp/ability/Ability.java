@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import br.com.weavenmc.commons.core.permission.Group;
 import br.com.weavenmc.commons.util.string.StringTimeUtils;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 
 public abstract class Ability implements Listener {
@@ -27,24 +27,24 @@ public abstract class Ability implements Listener {
 	public abstract void eject(final Player p0);
 
 	public boolean inCooldown(final Player p) {
-		return yPvP.getPlugin().getCooldownManager().hasCooldown(p);
+		return YPvP.getPlugin().getCooldownManager().hasCooldown(p);
 	}
 
 	public void sendCooldown(final Player p) {
-		final String millis = StringTimeUtils.toMillis(yPvP.getPlugin().getCooldownManager().getCooldown(p));
-		p.sendMessage("§6§lCOOLDOWN§f Aguarde mais §e§l" + millis + "§f para usar novamente!");
+		final String millis = StringTimeUtils.toMillis(YPvP.getPlugin().getCooldownManager().getCooldown(p));
+		p.sendMessage("ï¿½6ï¿½lCOOLDOWNï¿½f Aguarde mais ï¿½eï¿½l" + millis + "ï¿½f para usar novamente!");
 	}
 
 	public void addCooldown(final Player p, final int cooldown) {
-		yPvP.getPlugin().getCooldownManager().addCooldown(p, cooldown);
+		YPvP.getPlugin().getCooldownManager().addCooldown(p, cooldown);
 	}
 
 	public Gamer gamer(final Player p) {
-		return yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		return YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 	}
 
 	public boolean hasKit(final Player p) {
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		return gamer.getAbility() == this;
 	}
 

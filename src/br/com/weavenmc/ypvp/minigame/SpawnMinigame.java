@@ -26,7 +26,7 @@ import br.com.weavenmc.commons.bukkit.api.item.ItemBuilder;
 import br.com.weavenmc.commons.core.data.player.category.DataCategory;
 import br.com.weavenmc.commons.core.permission.Group;
 import br.com.weavenmc.commons.util.string.StringTimeUtils;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.managers.TeleportManager;
@@ -47,18 +47,18 @@ public class SpawnMinigame extends Minigame {
 		if (p.getAllowFlight() && !AdminMode.getInstance().isAdmin(p)) {
 			p.setAllowFlight(false);
 		}
-		p.sendMessage("§9§lTELEPORTE§f Voc\u00ea foi teleportado para §3§lSpawn");
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voc\u00ea foi teleportado para ï¿½3ï¿½lSpawn");
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		gamer.resetCombat();
 		if (gamer.getWarp() != null) {
 			gamer.getWarp().quit(p);
 		}
 		this.joinPlayer(p.getUniqueId());
-		yPvP.getPlugin().getCooldownManager().removeCooldown(p);
-		yPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
-		p.sendMessage("§8§lPROTE\u00c7\u00c3O§f Voc\u00ea §7§lRECEBEU§f sua prote\u00e7\u00e3o de spawn");
+		YPvP.getPlugin().getCooldownManager().removeCooldown(p);
+		YPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
+		p.sendMessage("ï¿½8ï¿½lPROTE\u00c7\u00c3Oï¿½f Voc\u00ea ï¿½7ï¿½lRECEBEUï¿½f sua prote\u00e7\u00e3o de spawn");
 		gamer.setWarp(this);
-		gamer.setAbility(yPvP.getPlugin().getAbilityManager().getNone());
+		gamer.setAbility(YPvP.getPlugin().getAbilityManager().getNone());
 		p.setHealth(20.0);
 		p.setFoodLevel(20);
 		p.setFireTicks(0);
@@ -66,28 +66,28 @@ public class SpawnMinigame extends Minigame {
 		p.getInventory().clear();
 		this.teleport(p);
 		this.protect(p);
-		yPvP.getPlugin().getTournament().quitPlayer(p);
+		YPvP.getPlugin().getTournament().quitPlayer(p);
 		p.getInventory().setArmorContents((ItemStack[]) null);
-		ItemBuilder builder = new ItemBuilder().type(Material.ENDER_CHEST).name("§b§lKits §7(Clique para Abrir)");
+		ItemBuilder builder = new ItemBuilder().type(Material.ENDER_CHEST).name("ï¿½bï¿½lKits ï¿½7(Clique para Abrir)");
 		p.getInventory().setItem(1, builder.build());
-		builder = new ItemBuilder().type(Material.COMPASS).name("§e§lWarps §7(Clique para Abrir)");
+		builder = new ItemBuilder().type(Material.COMPASS).name("ï¿½eï¿½lWarps ï¿½7(Clique para Abrir)");
 		p.getInventory().setItem(2, builder.build());
 		builder = new ItemBuilder().type(Material.SKULL_ITEM).durability(3).skin(p.getName())
-				.name("§6§l" + gamer.getName() + " §7(Clique para Ver)");
+				.name("ï¿½6ï¿½l" + gamer.getName() + " ï¿½7(Clique para Ver)");
 		p.getInventory().setItem(4, builder.build());
-		builder = new ItemBuilder().type(Material.DIAMOND).name("§b§lShop §7(Clique para Abrir)");
+		builder = new ItemBuilder().type(Material.DIAMOND).name("ï¿½bï¿½lShop ï¿½7(Clique para Abrir)");
 		p.getInventory().setItem(6, builder.build());
-		builder = new ItemBuilder().type(Material.ENCHANTED_BOOK).name("§3§lTournament §7(Clique para Ver)");
+		builder = new ItemBuilder().type(Material.ENCHANTED_BOOK).name("ï¿½3ï¿½lTournament ï¿½7(Clique para Ver)");
 		p.getInventory().setItem(7, builder.build());
 		p.getInventory().setHeldItemSlot(1);
 		p.updateInventory();
-		yPvP.getPlugin().getScoreboardManager().createScoreboard(p);
+		YPvP.getPlugin().getScoreboardManager().createScoreboard(p);
 	}
 
 	@EventHandler
 	public void onInteract(final PlayerInteractEvent event) {
 		final Player p = event.getPlayer();
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		if (gamer.getWarp() == this && gamer.getAbility().getName().equals("Nenhum")) {
 			final ItemStack item = event.getItem();
 			if (item != null) {
@@ -112,24 +112,24 @@ public class SpawnMinigame extends Minigame {
 	}
 
 	public void openWarpsMenu(final Player p) {
-		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 9, "§bWarps");
-		Minigame minigame = yPvP.getPlugin().getWarpManager().getWarp(FramesMinigame.class);
-		ItemBuilder builder = new ItemBuilder().type(Material.GLASS).name("§b§lFPS")
-				.lore(new String[] { "§7Treine seu PvP com mais FPSs" }).amount(minigame.getPlaying());
+		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 9, "ï¿½bWarps");
+		Minigame minigame = YPvP.getPlugin().getWarpManager().getWarp(FramesMinigame.class);
+		ItemBuilder builder = new ItemBuilder().type(Material.GLASS).name("ï¿½bï¿½lFPS")
+				.lore(new String[] { "ï¿½7Treine seu PvP com mais FPSs" }).amount(minigame.getPlaying());
 		menu.setItem(0, builder.build());
-		minigame = yPvP.getPlugin().getWarpManager().getWarp(BattleMinigame.class);
-		builder = new ItemBuilder().type(Material.BLAZE_ROD).name("§b§l1v1")
-				.lore(new String[] { "§7Tire 1v1 justo com algu\u00e9m" }).amount(minigame.getPlaying());
+		minigame = YPvP.getPlugin().getWarpManager().getWarp(BattleMinigame.class);
+		builder = new ItemBuilder().type(Material.BLAZE_ROD).name("ï¿½bï¿½l1v1")
+				.lore(new String[] { "ï¿½7Tire 1v1 justo com algu\u00e9m" }).amount(minigame.getPlaying());
 		menu.setItem(1, builder.build());
-		minigame = yPvP.getPlugin().getWarpManager().getWarp(LavaChallengeMinigame.class);
-		builder = new ItemBuilder().type(Material.LAVA_BUCKET).name("§b§lLava Challenge")
-				.lore(new String[] { "§7Treine seus refils e recrafts", "§7completando os niveis do challenge." })
+		minigame = YPvP.getPlugin().getWarpManager().getWarp(LavaChallengeMinigame.class);
+		builder = new ItemBuilder().type(Material.LAVA_BUCKET).name("ï¿½bï¿½lLava Challenge")
+				.lore(new String[] { "ï¿½7Treine seus refils e recrafts", "ï¿½7completando os niveis do challenge." })
 				.amount(minigame.getPlaying());
 		menu.setItem(2, builder.build());
-		minigame = yPvP.getPlugin().getWarpManager().getWarp(VoidChallengeMinigame.class);
-		builder = new ItemBuilder().type(Material.BEDROCK).name("§b§lVoid Challenge")
-				.lore(new String[] { "§7Veja quanto tempo voc\u00ea tanka", "§7com o dano do void e receba",
-						"§7moedas de acordo com o tempo." })
+		minigame = YPvP.getPlugin().getWarpManager().getWarp(VoidChallengeMinigame.class);
+		builder = new ItemBuilder().type(Material.BEDROCK).name("ï¿½bï¿½lVoid Challenge")
+				.lore(new String[] { "ï¿½7Veja quanto tempo voc\u00ea tanka", "ï¿½7com o dano do void e receba",
+						"ï¿½7moedas de acordo com o tempo." })
 				.amount(minigame.getPlaying());
 		menu.setItem(3, builder.build());
 		builder = null;
@@ -139,38 +139,38 @@ public class SpawnMinigame extends Minigame {
 
 	public void openKitsMenu(final Player p) {
 		BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
-		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 54, "§bKits");
-		ItemBuilder builder = new ItemBuilder().type(Material.INK_SACK).name("§7P\u00e1gina anterior").durability(8);
+		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 54, "ï¿½bKits");
+		ItemBuilder builder = new ItemBuilder().type(Material.INK_SACK).name("ï¿½7P\u00e1gina anterior").durability(8);
 		menu.setItem(0, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(3).name("§eSeus Kits")
+		builder = new ItemBuilder().type(Material.WOOL).durability(3).name("ï¿½eSeus Kits")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(2, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(5).name("§aKits Gratuitos do Mes")
+		builder = new ItemBuilder().type(Material.WOOL).durability(5).name("ï¿½aKits Gratuitos do Mes")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(3, builder.build());
-		builder = new ItemBuilder().type(Material.DIAMOND).name("§bLoja de Kits");
+		builder = new ItemBuilder().type(Material.DIAMOND).name("ï¿½bLoja de Kits");
 		menu.setItem(4, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(14).name("§6Kits Favoritos")
+		builder = new ItemBuilder().type(Material.WOOL).durability(14).name("ï¿½6Kits Favoritos")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(5, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(11).name("§cTodos os Kits")
+		builder = new ItemBuilder().type(Material.WOOL).durability(11).name("ï¿½cTodos os Kits")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(6, builder.build());
-		builder = new ItemBuilder().type(Material.INK_SACK).durability(8).name("§7Pr\u00f3xima p\u00e1gina");
+		builder = new ItemBuilder().type(Material.INK_SACK).durability(8).name("ï¿½7Pr\u00f3xima p\u00e1gina");
 		menu.setItem(8, builder.build());
 		for (int i = 9; i < 18; ++i) {
-			builder = new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("§e§l-").durability(4);
+			builder = new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("ï¿½eï¿½l-").durability(4);
 			menu.setItem(i, builder.build());
 		}
 		int i = 18;
 		List<String> description = new ArrayList<String>();
-		for (final Ability ability : yPvP.getPlugin().getAbilityManager().getAbilities()) {
+		for (final Ability ability : YPvP.getPlugin().getAbilityManager().getAbilities()) {
 			description.clear();
 			if (bP.hasGroupPermission(Group.COPA) || bP.hasGroupPermission(ability.getGroupToUse())
 					|| this.hasKit(bP, ability)) {
-				description.add("§aVoc\u00ea possui este kit");
+				description.add("ï¿½aVoc\u00ea possui este kit");
 			} else {
-				description.add("§cVoc\u00ea n\u00e3o possui este kit");
+				description.add("ï¿½cVoc\u00ea n\u00e3o possui este kit");
 			}
 			description.add("");
 			String[] description2;
@@ -178,7 +178,7 @@ public class SpawnMinigame extends Minigame {
 				final String d = description2[j];
 				description.add(d);
 			}
-			builder = new ItemBuilder().type(ability.getIcon()).name("§e§l" + ability.getName())
+			builder = new ItemBuilder().type(ability.getIcon()).name("ï¿½eï¿½l" + ability.getName())
 					.lore(description);
 			menu.setItem(i, builder.build());
 			++i;
@@ -191,45 +191,45 @@ public class SpawnMinigame extends Minigame {
 
 	public void openStoreMenu(final Player p) {
 		BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
-		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 54, "§bLoja de Kits");
-		ItemBuilder builder = new ItemBuilder().type(Material.INK_SACK).name("§7P\u00e1gina anterior").durability(8);
+		final Inventory menu = Bukkit.createInventory((InventoryHolder) p, 54, "ï¿½bLoja de Kits");
+		ItemBuilder builder = new ItemBuilder().type(Material.INK_SACK).name("ï¿½7P\u00e1gina anterior").durability(8);
 		menu.setItem(0, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(3).name("§eSeus Kits")
+		builder = new ItemBuilder().type(Material.WOOL).durability(3).name("ï¿½eSeus Kits")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(2, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(5).name("§aKits Gratuitos do Mes")
+		builder = new ItemBuilder().type(Material.WOOL).durability(5).name("ï¿½aKits Gratuitos do Mes")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(3, builder.build());
-		builder = new ItemBuilder().type(Material.DIAMOND).name("§bLoja de Kits");
+		builder = new ItemBuilder().type(Material.DIAMOND).name("ï¿½bLoja de Kits");
 		menu.setItem(4, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(14).name("§6Kits Favoritos")
+		builder = new ItemBuilder().type(Material.WOOL).durability(14).name("ï¿½6Kits Favoritos")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(5, builder.build());
-		builder = new ItemBuilder().type(Material.WOOL).durability(11).name("§cTodos os Kits")
+		builder = new ItemBuilder().type(Material.WOOL).durability(11).name("ï¿½cTodos os Kits")
 				.lore(new String[] { "Em breve!" });
 		menu.setItem(6, builder.build());
-		builder = new ItemBuilder().type(Material.INK_SACK).durability(8).name("§7Pr\u00f3xima p\u00e1gina");
+		builder = new ItemBuilder().type(Material.INK_SACK).durability(8).name("ï¿½7Pr\u00f3xima p\u00e1gina");
 		menu.setItem(8, builder.build());
 		for (int i = 9; i < 18; ++i) {
-			builder = new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("§e§l-").durability(4);
+			builder = new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("ï¿½eï¿½l-").durability(4);
 			menu.setItem(i, builder.build());
 		}
 		for (int i = 0; i < 9; ++i) {
-			builder = new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("§e§l-").durability(4);
+			builder = new ItemBuilder().type(Material.STAINED_GLASS_PANE).name("ï¿½eï¿½l-").durability(4);
 			menu.setItem(i, builder.build());
 		}
 		int i = 18;
 		List<String> description = new ArrayList<String>();
-		for (final Ability ability : yPvP.getPlugin().getAbilityManager().getAbilities()) {
+		for (final Ability ability : YPvP.getPlugin().getAbilityManager().getAbilities()) {
 			if (ability.getName().equalsIgnoreCase("pvp")) {
 				continue;
 			}
 			description.clear();
 			if (bP.hasGroupPermission(Group.COPA) || bP.hasGroupPermission(ability.getGroupToUse())
 					|| this.hasKit(bP, ability)) {
-				description.add("§aVoc\u00ea possui este kit.");
+				description.add("ï¿½aVoc\u00ea possui este kit.");
 			} else {
-				description.add("§cVoc\u00ea n\u00e3o possui este kit.");
+				description.add("ï¿½cVoc\u00ea n\u00e3o possui este kit.");
 			}
 			description.add("");
 			String[] description2;
@@ -238,12 +238,12 @@ public class SpawnMinigame extends Minigame {
 				description.add(d);
 			}
 			description.add("");
-			description.add("§b§lClique §besquerdo§b§l para alugar por §b3 dias");
-			description.add("§b§lpor §b" + ability.getTempPrice() + " moedas!");
+			description.add("ï¿½bï¿½lClique ï¿½besquerdoï¿½bï¿½l para alugar por ï¿½b3 dias");
+			description.add("ï¿½bï¿½lpor ï¿½b" + ability.getTempPrice() + " moedas!");
 			description.add("");
-			description.add("§e§lClique §edireito§e§l para comprar §epermanentemente");
-			description.add("§e§lpor §e" + ability.getPrice() + " moedas!");
-			builder = new ItemBuilder().type(ability.getIcon()).name("§e§l" + ability.getName())
+			description.add("ï¿½eï¿½lClique ï¿½edireitoï¿½eï¿½l para comprar ï¿½epermanentemente");
+			description.add("ï¿½eï¿½lpor ï¿½e" + ability.getPrice() + " moedas!");
+			builder = new ItemBuilder().type(ability.getIcon()).name("ï¿½eï¿½l" + ability.getName())
 					.lore(description);
 			menu.setItem(i, builder.build());
 			++i;
@@ -265,10 +265,10 @@ public class SpawnMinigame extends Minigame {
 			BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
 			ItemStack current = event.getCurrentItem();
 			if (current != null) {
-				if (event.getInventory().getName().equals("§bKits")) {
+				if (event.getInventory().getName().equals("ï¿½bKits")) {
 					event.setCancelled(true);
 					if (current.getType() != Material.DIAMOND) {
-						for (final Ability ability : yPvP.getPlugin().getAbilityManager().getAbilities()) {
+						for (final Ability ability : YPvP.getPlugin().getAbilityManager().getAbilities()) {
 							if (current.getType().equals((Object) ability.getIcon())) {
 								p.closeInventory();
 								p.performCommand("kit " + ability.getName());
@@ -278,9 +278,9 @@ public class SpawnMinigame extends Minigame {
 					} else {
 						this.openStoreMenu(p);
 					}
-				} else if (event.getInventory().getName().equals("§bLoja de Kits")) {
+				} else if (event.getInventory().getName().equals("ï¿½bLoja de Kits")) {
 					event.setCancelled(true);
-					for (final Ability ability : yPvP.getPlugin().getAbilityManager().getAbilities()) {
+					for (final Ability ability : YPvP.getPlugin().getAbilityManager().getAbilities()) {
 						if (current.getType().equals((Object) ability.getIcon())) {
 							if (event.getClick() == ClickType.LEFT) {
 								if (bP.getMoney() >= ability.getTempPrice()) {
@@ -288,13 +288,13 @@ public class SpawnMinigame extends Minigame {
 									bP.removeMoney(ability.getTempPrice());
 									bP.addPermission("pvpkit." + ability.getName().toLowerCase(), this.getTime("3d"));
 									bP.save(new DataCategory[] { DataCategory.ACCOUNT, DataCategory.BALANCE });
-									p.sendMessage("§b§lSHOP§f Parab\u00e9ns! Voc\u00ea §3§lALUGOU§f a habilidade §b§l"
-											+ ability.getName().toUpperCase() + "§f durante §3§l3 DIAS!");
+									p.sendMessage("ï¿½bï¿½lSHOPï¿½f Parab\u00e9ns! Voc\u00ea ï¿½3ï¿½lALUGOUï¿½f a habilidade ï¿½bï¿½l"
+											+ ability.getName().toUpperCase() + "ï¿½f durante ï¿½3ï¿½l3 DIAS!");
 								} else {
 									p.closeInventory();
-									p.sendMessage("§b§lSHOP§f Voc\u00ea precisa de mais §b§l"
+									p.sendMessage("ï¿½bï¿½lSHOPï¿½f Voc\u00ea precisa de mais ï¿½bï¿½l"
 											+ (ability.getTempPrice() - bP.getMoney())
-											+ " MOEDAS§f para §3§lALUGAR§f a habilidade §b§l"
+											+ " MOEDASï¿½f para ï¿½3ï¿½lALUGARï¿½f a habilidade ï¿½bï¿½l"
 											+ ability.getName().toUpperCase());
 								}
 							} else if (event.getClick() == ClickType.RIGHT) {
@@ -303,20 +303,20 @@ public class SpawnMinigame extends Minigame {
 									bP.removeMoney(ability.getPrice());
 									bP.addPermission("pvpkit." + ability.getName().toLowerCase(), -1L);
 									bP.save(new DataCategory[] { DataCategory.ACCOUNT, DataCategory.BALANCE });
-									p.sendMessage("§b§lSHOP§f Parab\u00e9ns! Voc\u00ea §3§lCOMPROU§f a habilidade §b§l"
-											+ ability.getName().toUpperCase() + "§f com dura\u00e7\u00e3o §3§lETERNA!");
+									p.sendMessage("ï¿½bï¿½lSHOPï¿½f Parab\u00e9ns! Voc\u00ea ï¿½3ï¿½lCOMPROUï¿½f a habilidade ï¿½bï¿½l"
+											+ ability.getName().toUpperCase() + "ï¿½f com dura\u00e7\u00e3o ï¿½3ï¿½lETERNA!");
 								} else {
 									p.closeInventory();
-									p.sendMessage("§b§lSHOP§f Voc\u00ea precisa de mais §b§l"
+									p.sendMessage("ï¿½bï¿½lSHOPï¿½f Voc\u00ea precisa de mais ï¿½bï¿½l"
 											+ (ability.getPrice() - bP.getMoney())
-											+ " MOEDAS§f para §3§lCOMPRAR§f a habilidade §b§l"
+											+ " MOEDASï¿½f para ï¿½3ï¿½lCOMPRARï¿½f a habilidade ï¿½bï¿½l"
 											+ ability.getName().toUpperCase());
 								}
 							}
 							return;
 						}
 					}
-				} else if (event.getInventory().getName().equals("§bWarps")) {
+				} else if (event.getInventory().getName().equals("ï¿½bWarps")) {
 					event.setCancelled(true);
 					if (current.getType() == Material.GLASS) {
 						p.closeInventory();
@@ -351,7 +351,7 @@ public class SpawnMinigame extends Minigame {
 	public void onEntityDamage(final EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player p = (Player) event.getEntity();
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (gamer.getWarp() == this && this.isProtected(p)) {
 				event.setCancelled(true);
 			}
@@ -364,17 +364,17 @@ public class SpawnMinigame extends Minigame {
 	public void onEntityAttack(final EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player p = (Player) event.getEntity();
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (gamer.getWarp() == this) {
 				if (!this.isProtected(p)) {
 					if (event.getDamager() instanceof Player) {
 						final Player t = (Player) event.getDamager();
-						final Gamer game = yPvP.getPlugin().getGamerManager().getGamer(t.getUniqueId());
+						final Gamer game = YPvP.getPlugin().getGamerManager().getGamer(t.getUniqueId());
 						if (game.getWarp() == this && this.isProtected(t)) {
 							event.setCancelled(false);
 							this.unprotect(t);
 							t.sendMessage(
-									"§8§lPROTE\u00c7\u00c3O§f Voc\u00ea §7§lPERDEU§f sua prote\u00e7\u00e3o de spawn");
+									"ï¿½8ï¿½lPROTE\u00c7\u00c3Oï¿½f Voc\u00ea ï¿½7ï¿½lPERDEUï¿½f sua prote\u00e7\u00e3o de spawn");
 							if (game.getAbility().getName().equals("Nenhum")) {
 								t.performCommand("kit pvp");
 							}
@@ -392,11 +392,11 @@ public class SpawnMinigame extends Minigame {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onSpawnMove(final PlayerMoveEvent event) {
 		Player p = event.getPlayer();
-		Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		if (gamer.getWarp() == this && this.isProtected(p)
-				&& p.getLocation().distance(yPvP.getPlugin().getLocationManager().getLocation("spawn")) > 15.0) {
+				&& p.getLocation().distance(YPvP.getPlugin().getLocationManager().getLocation("spawn")) > 15.0) {
 			this.unprotect(p);
-			p.sendMessage("§8§lPROTE\u00c7\u00c3O§f Voc\u00ea §7§lPERDEU§f sua prote\u00e7\u00e3o de spawn");
+			p.sendMessage("ï¿½8ï¿½lPROTE\u00c7\u00c3Oï¿½f Voc\u00ea ï¿½7ï¿½lPERDEUï¿½f sua prote\u00e7\u00e3o de spawn");
 			if (gamer.getAbility().getName().equals("Nenhum")) {
 				p.performCommand("kit pvp");
 			}

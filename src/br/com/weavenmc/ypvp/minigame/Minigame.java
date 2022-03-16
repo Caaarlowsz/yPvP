@@ -15,7 +15,7 @@ import br.com.weavenmc.commons.WeavenMC;
 import br.com.weavenmc.commons.bukkit.account.BukkitPlayer;
 import br.com.weavenmc.commons.bukkit.event.update.UpdateEvent;
 import br.com.weavenmc.commons.core.data.player.type.DataType;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 
 public abstract class Minigame implements Listener {
@@ -43,7 +43,7 @@ public abstract class Minigame implements Listener {
 		int maxKillStreak = 0;
 		UUID topper = null;
 		for (final Player p : Bukkit.getOnlinePlayers()) {
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (gamer.getWarp() != this) {
 				continue;
 			}
@@ -112,7 +112,7 @@ public abstract class Minigame implements Listener {
 	}
 
 	public void teleport(final Player p) {
-		Location loc = yPvP.getPlugin().getLocationManager().getLocation(this.name);
+		Location loc = YPvP.getPlugin().getLocationManager().getLocation(this.name);
 		if (loc != null) {
 			p.teleport(loc);
 			loc = null;

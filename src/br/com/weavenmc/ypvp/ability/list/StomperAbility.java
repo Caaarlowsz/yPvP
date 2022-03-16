@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 
@@ -19,8 +19,8 @@ public class StomperAbility extends Ability {
 		this.setHasItem(false);
 		this.setGroupToUse(Group.BETA);
 		this.setIcon(Material.DIAMOND_BOOTS);
-		this.setDescription(new String[] { "§7Pule de uma altura e fa\u00e7a os inimigos",
-				"§7abaixo receberem o seu dano de queda." });
+		this.setDescription(new String[] { "ï¿½7Pule de uma altura e fa\u00e7a os inimigos",
+				"ï¿½7abaixo receberem o seu dano de queda." });
 		this.setPrice(90000);
 		this.setTempPrice(9000);
 	}
@@ -49,7 +49,7 @@ public class StomperAbility extends Ability {
 		final double dmg = event.getDamage();
 		boolean hasPlayer = false;
 		for (final Player stompado : Bukkit.getOnlinePlayers()) {
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(stompado.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(stompado.getUniqueId());
 			if (stompado.getUniqueId() == stomper.getUniqueId()) {
 				continue;
 			}
@@ -60,8 +60,8 @@ public class StomperAbility extends Ability {
 			if ((stompado.isSneaking() || gamer.getAbility().getName().equals("AntiStomper")) && dmg2 > 4.0) {
 				dmg2 = 4.0;
 			}
-			stomper.sendMessage("§5§lSTOMPER§f Voc\u00ea §9§lSTOMPOU§f o §9§l" + stompado.getName());
-			stompado.sendMessage("§5§lSTOMPER§f Voc\u00ea foi §9§lSTOMPADO§f pelo §9§l" + stomper.getName());
+			stomper.sendMessage("ï¿½5ï¿½lSTOMPERï¿½f Voc\u00ea ï¿½9ï¿½lSTOMPOUï¿½f o ï¿½9ï¿½l" + stompado.getName());
+			stompado.sendMessage("ï¿½5ï¿½lSTOMPERï¿½f Voc\u00ea foi ï¿½9ï¿½lSTOMPADOï¿½f pelo ï¿½9ï¿½l" + stomper.getName());
 			gamer.setLastCombat(stomper.getUniqueId());
 			stompado.damage(dmg2, (Entity) stomper);
 			hasPlayer = true;

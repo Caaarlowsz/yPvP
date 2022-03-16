@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class SpiderAbility extends Ability {
@@ -27,7 +27,7 @@ public class SpiderAbility extends Ability {
 		this.setHasItem(true);
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.SNOW_BALL);
-		this.setDescription(new String[] { "§7Lan\u00e7e sua teia e prenda seus", "§7inimigos nela." });
+		this.setDescription(new String[] { "ï¿½7Lan\u00e7e sua teia e prenda seus", "ï¿½7inimigos nela." });
 		this.setPrice(55000);
 		this.setTempPrice(5000);
 	}
@@ -61,7 +61,7 @@ public class SpiderAbility extends Ability {
 						web.setType(Material.AIR);
 					}
 				}
-			}.runTaskLater((Plugin) yPvP.getPlugin(), 200L);
+			}.runTaskLater((Plugin) YPvP.getPlugin(), 200L);
 		}
 	}
 
@@ -71,12 +71,12 @@ public class SpiderAbility extends Ability {
 		if (this.hasKit(p)) {
 			final ItemStack itemInHand = p.getItemInHand();
 			if (itemInHand.getType() == this.getIcon() && itemInHand.hasItemMeta()
-					&& itemInHand.getItemMeta().getDisplayName().equals("§e§l" + this.getName())) {
+					&& itemInHand.getItemMeta().getDisplayName().equals("ï¿½eï¿½l" + this.getName())) {
 				event.setCancelled(true);
 				if (!this.inCooldown(p)) {
 					this.addCooldown(p, 25);
 					p.throwSnowball().setMetadata("Spiderball",
-							(MetadataValue) new FixedMetadataValue((Plugin) yPvP.getPlugin(), (Object) "Spiderball"));
+							(MetadataValue) new FixedMetadataValue((Plugin) YPvP.getPlugin(), (Object) "Spiderball"));
 				} else {
 					this.sendCooldown(p);
 				}

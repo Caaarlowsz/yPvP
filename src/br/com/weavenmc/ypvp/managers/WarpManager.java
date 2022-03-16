@@ -6,7 +6,7 @@ import java.util.Set;
 import org.bukkit.event.Listener;
 
 import br.com.weavenmc.ypvp.Management;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.minigame.BattleMinigame;
 import br.com.weavenmc.ypvp.minigame.FramesMinigame;
 import br.com.weavenmc.ypvp.minigame.LavaChallengeMinigame;
@@ -17,7 +17,7 @@ import br.com.weavenmc.ypvp.minigame.VoidChallengeMinigame;
 public class WarpManager extends Management {
 	private Set<Minigame> minigames;
 
-	public WarpManager(final yPvP plugin) {
+	public WarpManager(final YPvP plugin) {
 		super(plugin);
 		this.minigames = new HashSet<Minigame>();
 	}

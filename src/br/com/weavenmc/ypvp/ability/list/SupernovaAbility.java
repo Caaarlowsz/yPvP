@@ -25,7 +25,7 @@ import org.bukkit.util.Vector;
 
 import br.com.weavenmc.commons.bukkit.event.update.UpdateEvent;
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class SupernovaAbility extends Ability {
@@ -39,7 +39,7 @@ public class SupernovaAbility extends Ability {
 		this.setHasItem(true);
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.ARROW);
-		this.setDescription(new String[] { "§7Invoque flechas ao seu redor e", "§7cause dano em seus inimigos." });
+		this.setDescription(new String[] { "ï¿½7Invoque flechas ao seu redor e", "ï¿½7cause dano em seus inimigos." });
 		this.setPrice(90000);
 		this.setTempPrice(6500);
 		this.directions = new ArrayList<ArrowDirection>();
@@ -116,7 +116,7 @@ public class SupernovaAbility extends Ability {
 				synchronized (this) {
 					final Arrow arrow = (Arrow) loc.getWorld().spawn(loc.clone().add(0.0, 1.0, 0.0),
 							Arrow.class);
-					arrow.setMetadata("Supernova", (MetadataValue) new FixedMetadataValue((Plugin) yPvP.getPlugin(),
+					arrow.setMetadata("Supernova", (MetadataValue) new FixedMetadataValue((Plugin) YPvP.getPlugin(),
 							(Object) p.getUniqueId()));
 					final double pitch = (d.pitch + 90.0) * 3.141592653589793 / 180.0;
 					final double yaw = (d.yaw + 90.0) * 3.141592653589793 / 180.0;
@@ -158,7 +158,7 @@ public class SupernovaAbility extends Ability {
 						public void run() {
 							SupernovaAbility.this.damaged.remove(p.getUniqueId());
 						}
-					}.runTaskLater((Plugin) yPvP.getPlugin(), 10L);
+					}.runTaskLater((Plugin) YPvP.getPlugin(), 10L);
 				}
 			}
 		}

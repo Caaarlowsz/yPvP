@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class ThorAbility extends Ability {
@@ -22,7 +22,7 @@ public class ThorAbility extends Ability {
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.GOLD_AXE);
 		this.setDescription(
-				new String[] { "§7Tenha o pr\u00f3prio Mjolnir de Thor", "§7em sua vers\u00e3o mais poderosa." });
+				new String[] { "ï¿½7Tenha o pr\u00f3prio Mjolnir de Thor", "ï¿½7em sua vers\u00e3o mais poderosa." });
 		this.setPrice(65000);
 		this.setTempPrice(2500);
 	}
@@ -44,7 +44,7 @@ public class ThorAbility extends Ability {
 						public void run() {
 							p.getWorld().strikeLightning(target.getLocation());
 						}
-					}.runTaskLater((Plugin) yPvP.getPlugin(), i * 10L);
+					}.runTaskLater((Plugin) YPvP.getPlugin(), i * 10L);
 				}
 			} else {
 				this.sendCooldown(p);

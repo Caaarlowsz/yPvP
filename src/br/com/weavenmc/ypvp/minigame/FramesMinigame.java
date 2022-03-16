@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import br.com.weavenmc.commons.bukkit.api.admin.AdminMode;
 import br.com.weavenmc.commons.bukkit.api.bossbar.BossBarAPI;
 import br.com.weavenmc.commons.bukkit.api.item.ItemBuilder;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.managers.TeleportManager;
 
@@ -34,31 +34,31 @@ public class FramesMinigame extends Minigame {
 		if (p.getAllowFlight() && !AdminMode.getInstance().isAdmin(p)) {
 			p.setAllowFlight(false);
 		}
-		p.sendMessage("§9§lTELEPORTE§f Voc\u00ea foi teleportado para §3§lFPS");
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voc\u00ea foi teleportado para ï¿½3ï¿½lFPS");
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		gamer.resetCombat();
 		if (gamer.getWarp() != null) {
 			gamer.getWarp().quit(p);
 		}
 		this.joinPlayer(p.getUniqueId());
-		yPvP.getPlugin().getCooldownManager().removeCooldown(p);
-		yPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
-		p.sendMessage("§8§lPROTE\u00c7\u00c3O§f Voc\u00ea §7§lRECEBEU§f sua prote\u00e7\u00e3o de spawn");
+		YPvP.getPlugin().getCooldownManager().removeCooldown(p);
+		YPvP.getPlugin().getAbilityManager().getAbilities().stream().forEach(ability -> ability.eject(p));
+		p.sendMessage("ï¿½8ï¿½lPROTE\u00c7\u00c3Oï¿½f Voc\u00ea ï¿½7ï¿½lRECEBEUï¿½f sua prote\u00e7\u00e3o de spawn");
 		gamer.setWarp(this);
-		gamer.setAbility(yPvP.getPlugin().getAbilityManager().getNone());
+		gamer.setAbility(YPvP.getPlugin().getAbilityManager().getNone());
 		p.setHealth(20.0);
 		p.setFoodLevel(20);
 		p.setFireTicks(0);
 		p.getActivePotionEffects().clear();
 		this.teleport(p);
 		this.protect(p);
-		yPvP.getPlugin().getTournament().quitPlayer(p);
+		YPvP.getPlugin().getTournament().quitPlayer(p);
 		p.getInventory().clear();
 		p.getInventory().setArmorContents((ItemStack[]) null);
 		for (int i = 0; i < 36; ++i) {
 			p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.MUSHROOM_SOUP) });
 		}
-		if (yPvP.getPlugin().getPvpType() == yPvP.PvPType.FULLIRON) {
+		if (YPvP.getPlugin().getPvpType() == YPvP.PvPType.FULLIRON) {
 			ItemBuilder builder = new ItemBuilder().type(Material.IRON_HELMET);
 			p.getInventory().setHelmet(builder.build());
 			builder = new ItemBuilder().type(Material.IRON_CHESTPLATE);
@@ -84,7 +84,7 @@ public class FramesMinigame extends Minigame {
 		builder = new ItemBuilder().type(Material.BROWN_MUSHROOM).amount(64);
 		p.getInventory().setItem(15, builder.build());
 		p.updateInventory();
-		yPvP.getPlugin().getScoreboardManager().createScoreboard(p);
+		YPvP.getPlugin().getScoreboardManager().createScoreboard(p);
 		builder = null;
 	}
 
@@ -98,7 +98,7 @@ public class FramesMinigame extends Minigame {
 	public void onEntityDamage(final EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player p = (Player) event.getEntity();
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (gamer.getWarp() == this && this.isProtected(p)) {
 				event.setCancelled(true);
 			}
@@ -111,17 +111,17 @@ public class FramesMinigame extends Minigame {
 	public void onEntityAttack(final EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player p = (Player) event.getEntity();
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (gamer.getWarp() == this) {
 				if (!this.isProtected(p)) {
 					if (event.getDamager() instanceof Player) {
 						final Player t = (Player) event.getDamager();
-						final Gamer game = yPvP.getPlugin().getGamerManager().getGamer(t.getUniqueId());
+						final Gamer game = YPvP.getPlugin().getGamerManager().getGamer(t.getUniqueId());
 						if (game.getWarp() == this && this.isProtected(t)) {
 							event.setCancelled(false);
 							this.unprotect(t);
 							t.sendMessage(
-									"§8§lPROTE\u00c7\u00c3O§f Voc\u00ea §7§lPERDEU§f sua prote\u00e7\u00e3o de spawn");
+									"ï¿½8ï¿½lPROTE\u00c7\u00c3Oï¿½f Voc\u00ea ï¿½7ï¿½lPERDEUï¿½f sua prote\u00e7\u00e3o de spawn");
 						}
 					}
 				} else if (this.isProtected(p)) {
@@ -136,13 +136,13 @@ public class FramesMinigame extends Minigame {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onSpawnMove(final PlayerMoveEvent event) {
 		Player p = event.getPlayer();
-		Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		if (gamer.getWarp() == this && this.isProtected(p)) {
-			Location fps = yPvP.getPlugin().getLocationManager().getLocation("fps");
+			Location fps = YPvP.getPlugin().getLocationManager().getLocation("fps");
 			if (fps != null) {
 				if (p.getLocation().distance(fps) > 5.0) {
 					this.unprotect(p);
-					p.sendMessage("§8§lPROTE\u00c7\u00c3O§f Voc\u00ea §7§lPERDEU§f sua prote\u00e7\u00e3o de spawn");
+					p.sendMessage("ï¿½8ï¿½lPROTE\u00c7\u00c3Oï¿½f Voc\u00ea ï¿½7ï¿½lPERDEUï¿½f sua prote\u00e7\u00e3o de spawn");
 				}
 				fps = null;
 			}

@@ -1,13 +1,14 @@
 package br.com.weavenmc.ypvp;
 
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import org.bukkit.Server;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 public abstract class Management {
-	private yPvP plugin;
+	private YPvP plugin;
 
-	public Management(final yPvP plugin) {
+	public Management(final YPvP plugin) {
 		this.plugin = plugin;
 	}
 
@@ -23,7 +24,7 @@ public abstract class Management {
 		return this.plugin.getServer();
 	}
 
-	public yPvP getPlugin() {
+	public YPvP getPlugin() {
 		return this.plugin;
 	}
 }

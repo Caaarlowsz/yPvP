@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import br.com.weavenmc.ypvp.Management;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 
 public class GamerManager extends Management {
 	private HashMap<UUID, Gamer> gamers;
 
-	public GamerManager(final yPvP plugin) {
+	public GamerManager(final YPvP plugin) {
 		super(plugin);
 	}
 

@@ -21,7 +21,7 @@ import br.com.weavenmc.commons.core.command.CommandClass;
 import br.com.weavenmc.commons.core.command.CommandFramework;
 import br.com.weavenmc.commons.core.data.player.type.DataType;
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.minigame.BattleMinigame;
@@ -35,15 +35,15 @@ public class GameCommand implements CommandClass {
 	public void espectar(final BukkitCommandSender sender, final String label, final String[] args) {
 		if (sender.isPlayer()) {
 			final Player p = sender.getPlayer();
-			final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (args.length == 0) {
-				p.sendMessage("§b§lESPECTAR§f Utilize: /espectar <player>");
+				p.sendMessage("ï¿½bï¿½lESPECTARï¿½f Utilize: /espectar <player>");
 			} else {
 				final Player t = Bukkit.getPlayer(args[0]);
 				if (t != null) {
 					if (!t.getUniqueId().equals(p.getUniqueId())) {
 						if (AdminMode.getInstance().isAdmin(p)) {
-							final Gamer tGamer = yPvP.getPlugin().getGamerManager().getGamer(t.getUniqueId());
+							final Gamer tGamer = YPvP.getPlugin().getGamerManager().getGamer(t.getUniqueId());
 							if (tGamer.getWarp().getName().equals("1v1")) {
 								final BattleMinigame battle = (BattleMinigame) tGamer.getWarp();
 								if (battle.isBattling(t)) {
@@ -58,21 +58,21 @@ public class GameCommand implements CommandClass {
 									p.teleport((Entity) t);
 									p.showPlayer(t);
 									p.showPlayer(battling);
-									p.sendMessage("§b§lESPECTAR§f Voc\u00ea agora est\u00e1 espectando a luta.");
+									p.sendMessage("ï¿½bï¿½lESPECTARï¿½f Voc\u00ea agora est\u00e1 espectando a luta.");
 								} else {
-									p.sendMessage("§b§lESPECTAR§f O player n\u00e3o est\u00e1 em 1v1.");
+									p.sendMessage("ï¿½bï¿½lESPECTARï¿½f O player n\u00e3o est\u00e1 em 1v1.");
 								}
 							} else {
-								p.sendMessage("§b§lESPECTAR§f Voce so pode espectar jogadores em 1v1.");
+								p.sendMessage("ï¿½bï¿½lESPECTARï¿½f Voce so pode espectar jogadores em 1v1.");
 							}
 						} else {
-							p.sendMessage("§b§lESPECTAR§f Voce precisa estar no Modo Admin.");
+							p.sendMessage("ï¿½bï¿½lESPECTARï¿½f Voce precisa estar no Modo Admin.");
 						}
 					} else {
-						p.sendMessage("§b§lESPECTAR§f Indique outro player.");
+						p.sendMessage("ï¿½bï¿½lESPECTARï¿½f Indique outro player.");
 					}
 				} else {
-					p.sendMessage("§b§lESPECTAR§f O player " + args[0] + " nao esta online.");
+					p.sendMessage("ï¿½bï¿½lESPECTARï¿½f O player " + args[0] + " nao esta online.");
 				}
 			}
 		}
@@ -83,37 +83,37 @@ public class GameCommand implements CommandClass {
 		if (sender.isPlayer()) {
 			Player p = sender.getPlayer();
 			BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			if (args.length == 0) {
-				p.sendMessage("§b§lKITS§f Utilize: /kit <kit>");
+				p.sendMessage("ï¿½bï¿½lKITSï¿½f Utilize: /kit <kit>");
 			} else if (gamer.getWarp().getName().equals("Spawn")) {
 				if (gamer.getAbility().getName().equals("Nenhum")) {
-					final Ability ability = yPvP.getPlugin().getAbilityManager().getAbility(args[0]);
+					final Ability ability = YPvP.getPlugin().getAbilityManager().getAbility(args[0]);
 					if (ability != null) {
 						if (bP.hasGroupPermission(Group.COPA) || bP.hasGroupPermission(ability.getGroupToUse())
 								|| this.hasKit(bP, ability)) {
 							gamer.setAbility(ability);
 							this.construct(p, ability);
-							p.sendMessage("§b§lKITS§f Voc\u00ea selecionou o kit §3§l" + ability.getName());
-							TitleAPI.setTitle(p, "§bKit " + ability.getName(), "§fescolhido com sucesso");
+							p.sendMessage("ï¿½bï¿½lKITSï¿½f Voc\u00ea selecionou o kit ï¿½3ï¿½l" + ability.getName());
+							TitleAPI.setTitle(p, "ï¿½bKit " + ability.getName(), "ï¿½fescolhido com sucesso");
 						} else {
-							p.sendMessage("§b§lKITS§f Voc\u00ea n\u00e3o possui o kit §3§l"
-									+ ability.getName().toUpperCase() + "§f!");
+							p.sendMessage("ï¿½bï¿½lKITSï¿½f Voc\u00ea n\u00e3o possui o kit ï¿½3ï¿½l"
+									+ ability.getName().toUpperCase() + "ï¿½f!");
 						}
 					} else {
-						p.sendMessage("§b§lKITS§f O kit " + args[0] + " n\u00e3o existe!");
+						p.sendMessage("ï¿½bï¿½lKITSï¿½f O kit " + args[0] + " n\u00e3o existe!");
 					}
 				} else {
-					p.sendMessage("§b§lKITS§f Voc\u00ea j\u00e1 est\u00e1 usando um kit!");
+					p.sendMessage("ï¿½bï¿½lKITSï¿½f Voc\u00ea j\u00e1 est\u00e1 usando um kit!");
 				}
 			} else {
-				p.sendMessage("§b§lKITS§f Voc\u00ea s\u00f3 pode usar kits no Spawn!");
+				p.sendMessage("ï¿½bï¿½lKITSï¿½f Voc\u00ea s\u00f3 pode usar kits no Spawn!");
 			}
 			gamer = null;
 			bP = null;
 			p = null;
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
@@ -126,14 +126,14 @@ public class GameCommand implements CommandClass {
 		if (sender.isPlayer()) {
 			Player p = sender.getPlayer();
 			if (args.length == 0) {
-				p.sendMessage("§3§lWARPS§f Utilize: /setwarp <warp>");
+				p.sendMessage("ï¿½3ï¿½lWARPSï¿½f Utilize: /setwarp <warp>");
 			} else {
-				yPvP.getPlugin().getLocationManager().saveLocation(args[0], p.getLocation());
-				p.sendMessage("§3§lWARPS§f Voc\u00ea setou a warp §b§l" + args[0] + "§f.");
+				YPvP.getPlugin().getLocationManager().saveLocation(args[0], p.getLocation());
+				p.sendMessage("ï¿½3ï¿½lWARPSï¿½f Voc\u00ea setou a warp ï¿½bï¿½l" + args[0] + "ï¿½f.");
 			}
 			p = null;
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
@@ -141,10 +141,10 @@ public class GameCommand implements CommandClass {
 	public void spawn(final BukkitCommandSender sender, final String label, final String[] args) {
 		if (sender.isPlayer()) {
 			Player p = sender.getPlayer();
-			yPvP.getPlugin().getWarpManager().getWarp(SpawnMinigame.class).join(p);
+			YPvP.getPlugin().getWarpManager().getWarp(SpawnMinigame.class).join(p);
 			p = null;
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
@@ -152,53 +152,53 @@ public class GameCommand implements CommandClass {
 	public void score(final BukkitCommandSender sender, final String label, final String[] args) {
 		if (sender.isPlayer()) {
 			Player p = sender.getPlayer();
-			Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+			Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 			Sidebar sidebar = gamer.getSidebar();
 			if (sidebar != null) {
 				if (sidebar.isHided()) {
 					sidebar.show();
-					yPvP.getPlugin().getScoreboardManager().createScoreboard(p);
-					p.sendMessage("§6§lSCOREBOARD§f Voc\u00ea §e§lATIVOU§f a Scoreboard!");
+					YPvP.getPlugin().getScoreboardManager().createScoreboard(p);
+					p.sendMessage("ï¿½6ï¿½lSCOREBOARDï¿½f Voc\u00ea ï¿½eï¿½lATIVOUï¿½f a Scoreboard!");
 				} else {
 					sidebar.hide();
-					p.sendMessage("§6§lSCOREBOARD§f Voc\u00ea §e§lDESATIVOU§f a Scoreboard!");
+					p.sendMessage("ï¿½6ï¿½lSCOREBOARDï¿½f Voc\u00ea ï¿½eï¿½lDESATIVOUï¿½f a Scoreboard!");
 				}
 			} else {
-				yPvP.getPlugin().getScoreboardManager().createScoreboard(p);
-				p.sendMessage("§6§lSCOREBOARD§f Voc\u00ea §e§lATIVOU§f a Scoreboard!");
+				YPvP.getPlugin().getScoreboardManager().createScoreboard(p);
+				p.sendMessage("ï¿½6ï¿½lSCOREBOARDï¿½f Voc\u00ea ï¿½eï¿½lATIVOUï¿½f a Scoreboard!");
 			}
 			sidebar = null;
 			gamer = null;
 			p = null;
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
 	@CommandFramework.Command(name = "fps")
 	public void frames(final BukkitCommandSender sender, final String label, final String[] args) {
 		if (sender.isPlayer()) {
-			yPvP.getPlugin().getWarpManager().getWarp(FramesMinigame.class).join(sender.getPlayer());
+			YPvP.getPlugin().getWarpManager().getWarp(FramesMinigame.class).join(sender.getPlayer());
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
 	@CommandFramework.Command(name = "1v1")
 	public void battle(final BukkitCommandSender sender, final String label, final String[] args) {
 		if (sender.isPlayer()) {
-			yPvP.getPlugin().getWarpManager().getWarp(BattleMinigame.class).join(sender.getPlayer());
+			YPvP.getPlugin().getWarpManager().getWarp(BattleMinigame.class).join(sender.getPlayer());
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
 	@CommandFramework.Command(name = "lava")
 	public void lava(final BukkitCommandSender sender, final String label, final String[] args) {
 		if (sender.isPlayer()) {
-			yPvP.getPlugin().getWarpManager().getWarp(LavaChallengeMinigame.class).join(sender.getPlayer());
+			YPvP.getPlugin().getWarpManager().getWarp(LavaChallengeMinigame.class).join(sender.getPlayer());
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
@@ -207,18 +207,18 @@ public class GameCommand implements CommandClass {
 		if (sender.isPlayer()) {
 			final Player p = sender.getPlayer();
 			if (args.length == 0) {
-				p.sendMessage("§3§lWARPS§f Utilize: §b§l/warp§f <nome>");
+				p.sendMessage("ï¿½3ï¿½lWARPSï¿½f Utilize: ï¿½bï¿½l/warpï¿½f <nome>");
 			} else {
-				Minigame minigame = yPvP.getPlugin().getWarpManager().getWarp(args[0]);
+				Minigame minigame = YPvP.getPlugin().getWarpManager().getWarp(args[0]);
 				if (minigame != null) {
 					minigame.join(p);
 					minigame = null;
 				} else {
-					p.sendMessage("§9§lTELEPORTE§f Esta warp n\u00e3o existe!");
+					p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Esta warp n\u00e3o existe!");
 				}
 			}
 		} else {
-			sender.sendMessage("§4§lERRO§f Comando disponivel apenas §c§lin-game");
+			sender.sendMessage("ï¿½4ï¿½lERROï¿½f Comando disponivel apenas ï¿½cï¿½lin-game");
 		}
 	}
 
@@ -228,7 +228,7 @@ public class GameCommand implements CommandClass {
 		for (int i = 0; i < 36; ++i) {
 			p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.MUSHROOM_SOUP) });
 		}
-		if (yPvP.getPlugin().getPvpType() == yPvP.PvPType.FULLIRON) {
+		if (YPvP.getPlugin().getPvpType() == YPvP.PvPType.FULLIRON) {
 			ItemBuilder builder = new ItemBuilder().type(Material.IRON_HELMET);
 			p.getInventory().setHelmet(builder.build());
 			builder = new ItemBuilder().type(Material.IRON_CHESTPLATE);
@@ -243,7 +243,7 @@ public class GameCommand implements CommandClass {
 			}
 			p.getInventory().setItem(0, builder.build());
 			if (ability.isHasItem()) {
-				builder = new ItemBuilder().name("§e§l" + ability.getName()).type(ability.getIcon());
+				builder = new ItemBuilder().name("ï¿½eï¿½l" + ability.getName()).type(ability.getIcon());
 				p.getInventory().setItem(1, builder.build());
 			}
 			builder = null;
@@ -254,7 +254,7 @@ public class GameCommand implements CommandClass {
 			}
 			p.getInventory().setItem(0, builder.build());
 			if (ability.isHasItem()) {
-				builder = new ItemBuilder().name("§e§l" + ability.getName()).type(ability.getIcon());
+				builder = new ItemBuilder().name("ï¿½eï¿½l" + ability.getName()).type(ability.getIcon());
 				p.getInventory().setItem(1, builder.build());
 			}
 			builder = null;
@@ -265,7 +265,7 @@ public class GameCommand implements CommandClass {
 		p.getInventory().setItem(14, builder.build());
 		builder = new ItemBuilder().type(Material.BROWN_MUSHROOM).amount(32);
 		p.getInventory().setItem(15, builder.build());
-		builder = new ItemBuilder().type(Material.COMPASS).name("§3§lBussola");
+		builder = new ItemBuilder().type(Material.COMPASS).name("ï¿½3ï¿½lBussola");
 		p.getInventory().setItem(8, builder.build());
 		p.updateInventory();
 		builder = null;
@@ -277,7 +277,7 @@ public class GameCommand implements CommandClass {
 		Player p = sender.getPlayer();
 		BukkitPlayer bP = (BukkitPlayer) WeavenMC.getAccountCommon().getWeavenPlayer(p.getUniqueId());
 		if (args.length == 1) {
-			for (final Ability ability : yPvP.getPlugin().getAbilityManager().getAbilities()) {
+			for (final Ability ability : YPvP.getPlugin().getAbilityManager().getAbilities()) {
 				if (bP.hasGroupPermission(ability.getGroupToUse()) || bP.getData(DataType.PLAYER_PERMISSIONS).asList()
 						.contains("pvpkit." + ability.getName().toLowerCase())) {
 					if (args[0].toLowerCase().startsWith(ability.getName().substring(0, 1))) {

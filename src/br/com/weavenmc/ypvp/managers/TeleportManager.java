@@ -13,7 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.gamer.Gamer;
 import br.com.weavenmc.ypvp.minigame.Minigame;
 
@@ -30,13 +30,13 @@ public class TeleportManager implements Listener {
 		this.listenerRegistered = false;
 		this.teleportTask = new HashMap<UUID, BukkitTask>();
 		if (!this.listenerRegistered) {
-			Bukkit.getPluginManager().registerEvents((Listener) this, (Plugin) yPvP.getPlugin());
+			Bukkit.getPluginManager().registerEvents((Listener) this, (Plugin) YPvP.getPlugin());
 			this.listenerRegistered = true;
 		}
 	}
 
 	public void allowJoin(final Player p) {
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		gamer.resetCombat();
 		final BukkitTask currentTask = this.teleportTask.get(p.getUniqueId());
 		if (currentTask != null) {
@@ -46,22 +46,22 @@ public class TeleportManager implements Listener {
 	}
 
 	public boolean canJoin(final Player p, final Minigame minigame) {
-		final Gamer gamer = yPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
+		final Gamer gamer = YPvP.getPlugin().getGamerManager().getGamer(p.getUniqueId());
 		final BukkitTask currentTask = this.teleportTask.get(p.getUniqueId());
 		if (currentTask != null) {
 			currentTask.cancel();
 			this.teleportTask.remove(p.getUniqueId());
-			p.sendMessage("§9§lTELEPORTE§f Voc\u00ea §3§lCANCELOU§f o teleporte!");
+			p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voc\u00ea ï¿½3ï¿½lCANCELOUï¿½f o teleporte!");
 			return false;
 		}
 		if (!gamer.inCombat()) {
 			return true;
 		}
 		if (!p.isOnGround()) {
-			p.sendMessage("§9§lTELEPORTE§f Voc\u00ea precisa estar no §3§lCHAO§f para teleportar!");
+			p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voc\u00ea precisa estar no ï¿½3ï¿½lCHAOï¿½f para teleportar!");
 			return false;
 		}
-		p.sendMessage("§9§lTELEPORTE§f Voce sera teleportado em §3§l5 SEGUNDOS§f. N\u00e3o se mexa!");
+		p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Voce sera teleportado em ï¿½3ï¿½l5 SEGUNDOSï¿½f. N\u00e3o se mexa!");
 		this.teleportTask.put(p.getUniqueId(), new BukkitRunnable() {
 			public void run() {
 				final BukkitTask task = TeleportManager.this.teleportTask.get(p.getUniqueId());
@@ -71,7 +71,7 @@ public class TeleportManager implements Listener {
 					TeleportManager.this.teleportTask.remove(p.getUniqueId());
 				}
 			}
-		}.runTaskLater((Plugin) yPvP.getPlugin(), 100L));
+		}.runTaskLater((Plugin) YPvP.getPlugin(), 100L));
 		return false;
 	}
 
@@ -84,7 +84,7 @@ public class TeleportManager implements Listener {
 		final BukkitTask currentTask = this.teleportTask.get(p.getUniqueId());
 		currentTask.cancel();
 		this.teleportTask.remove(p.getUniqueId());
-		p.sendMessage("§9§lTELEPORTE§f Seu teleporte foi §3§lCANCELADO§f pois voce se mexeu!");
+		p.sendMessage("ï¿½9ï¿½lTELEPORTEï¿½f Seu teleporte foi ï¿½3ï¿½lCANCELADOï¿½f pois voce se mexeu!");
 	}
 
 	public static TeleportManager getInstance() {

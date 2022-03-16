@@ -1,7 +1,9 @@
-package br.com.weavenmc.ypvp;
+package com.github.caaarlowsz.ymc.kitpvp;
 
 import java.io.File;
 
+import com.github.caaarlowsz.kitpvpapi.KitPvP;
+import com.github.caaarlowsz.kitpvpapi.KitPvPAPI;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,8 +22,27 @@ import br.com.weavenmc.ypvp.managers.WarpManager;
 import br.com.weavenmc.ypvp.minigame.LocationManager;
 import br.com.weavenmc.ypvp.tournament.Tournament;
 
-public class yPvP extends JavaPlugin {
-	private static yPvP plugin;
+public class YPvP extends JavaPlugin implements KitPvP {
+
+	@Override
+	public void onEnable() {
+		super.onEnable();
+		KitPvPAPI.setInstance(this);
+
+		// TODO: Remover quando melhorar a classe principal
+		this.enable();
+	}
+
+	@Override
+	public void onDisable() {
+		super.onDisable();
+		KitPvPAPI.setInstance(null);
+
+		// TODO: Remover quando melhorar a classe principal
+		this.disable();
+	}
+
+	private static YPvP plugin;
 	private PvPType pvpType;
 	private Tournament tournament;
 	private GamerManager gamerManager;
@@ -32,10 +53,10 @@ public class yPvP extends JavaPlugin {
 	private CooldownManager cooldownManager;
 
 	public void onLoad() {
-		(yPvP.plugin = this).saveDefaultConfig();
+		(YPvP.plugin = this).saveDefaultConfig();
 	}
 
-	public void onEnable() {
+	public void enable() {
 		this.pvpType = PvPType.valueOf(this.getConfig().getString("type"));
 		this.getLogger().info("PvP Type: " + this.pvpType.name());
 		this.tournament = new Tournament();
@@ -48,7 +69,7 @@ public class yPvP extends JavaPlugin {
 				.loadCommandsFromPackage("br.com.weavenmc.ypvp.commands");
 	}
 
-	public void onDisable() {
+	public void disable() {
 		this.disableManagements();
 	}
 
@@ -83,8 +104,8 @@ public class yPvP extends JavaPlugin {
 		return super.getFile();
 	}
 
-	public static yPvP getPlugin() {
-		return yPvP.plugin;
+	public static YPvP getPlugin() {
+		return YPvP.plugin;
 	}
 
 	public PvPType getPvpType() {

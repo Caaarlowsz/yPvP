@@ -16,7 +16,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import br.com.weavenmc.commons.core.permission.Group;
-import br.com.weavenmc.ypvp.yPvP;
+import com.github.caaarlowsz.ymc.kitpvp.YPvP;
 import br.com.weavenmc.ypvp.ability.Ability;
 
 public class PickpocketAbility extends Ability {
@@ -30,7 +30,7 @@ public class PickpocketAbility extends Ability {
 		this.setHasItem(true);
 		this.setGroupToUse(Group.LIGHT);
 		this.setIcon(Material.BLAZE_ROD);
-		this.setDescription(new String[] { "§7Abra o invent\u00e1rio de seus inimigos", "§7e roube items dele." });
+		this.setDescription(new String[] { "ï¿½7Abra o invent\u00e1rio de seus inimigos", "ï¿½7e roube items dele." });
 		this.setPrice(80000);
 		this.setTempPrice(8700);
 		this.blocked_items.add(Material.DIAMOND_SWORD);
@@ -56,15 +56,15 @@ public class PickpocketAbility extends Ability {
 				final Player t = (Player) event.getRightClicked();
 				p.openInventory((Inventory) t.getInventory());
 				this.open.add(p.getUniqueId());
-				t.sendMessage("§5§lPICKPOCKET§f O jogador §9§l" + p.getName() + "§f abriu o seu invent\u00e1rio!");
-				p.sendMessage("§5§lPICKPOCKET§f Voc\u00ea tem §9§l1.5 SEGUNDOS§f para roubar os itens...");
+				t.sendMessage("ï¿½5ï¿½lPICKPOCKETï¿½f O jogador ï¿½9ï¿½l" + p.getName() + "ï¿½f abriu o seu invent\u00e1rio!");
+				p.sendMessage("ï¿½5ï¿½lPICKPOCKETï¿½f Voc\u00ea tem ï¿½9ï¿½l1.5 SEGUNDOSï¿½f para roubar os itens...");
 				new BukkitRunnable() {
 					public void run() {
 						if (PickpocketAbility.this.open.contains(p.getUniqueId())) {
 							p.closeInventory();
 						}
 					}
-				}.runTaskLater((Plugin) yPvP.getPlugin(), 30L);
+				}.runTaskLater((Plugin) YPvP.getPlugin(), 30L);
 			} else {
 				this.sendCooldown(p);
 			}
@@ -79,7 +79,7 @@ public class PickpocketAbility extends Ability {
 				if (this.blocked_items.contains(event.getCurrentItem().getType())) {
 					event.setCancelled(true);
 				} else {
-					for (final Ability ability : yPvP.getPlugin().getAbilityManager().getAbilities()) {
+					for (final Ability ability : YPvP.getPlugin().getAbilityManager().getAbilities()) {
 						if (ability.getIcon() == null) {
 							continue;
 						}
